@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 17:36:42 by yham              #+#    #+#             */
-/*   Updated: 2023/06/25 22:20:59 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/25 22:25:31 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ char	*gnl_strjoin(char *s1, char *s2)
 		return (gnl_strdup(s2));
 	if (!s2)
 		return (s1);
-	joined = (char *)malloc(sizeof(char) * (gnl_strlen(s1) + gnl_strlen(s2) + 1));
+	joined = (char *)malloc(sizeof(char) \
+					* (gnl_strlen(s1) + gnl_strlen(s2) + 1));
 	if (joined == NULL)
 		return (NULL);
 	i = 0;
