@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/25 20:38:13 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/25 22:23:11 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void init_info(t_cub3d_info *app)
 	app->player_y = 2;
 	app->dirX = 1;
 	app->dirY = 0;
+	app->ceiling = 0x0099ccff;
+	app->floor = 0x008b700c;
 
 	int map[10][10] = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
