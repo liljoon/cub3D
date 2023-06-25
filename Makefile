@@ -6,7 +6,7 @@
 #    By: yham <yham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:23:57 by isunwoo           #+#    #+#              #
-#    Updated: 2023/06/25 21:32:55 by yham             ###   ########.fr        #
+#    Updated: 2023/06/25 22:48:43 by yham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,7 @@ NAME	=	cub3D
 GNL_SRC	=	gnl/get_next_line.c\
 			gnl/get_next_line_utils.c\
 
-SRCS	=	test.c\
-			parsing.c\
-			$(GNL_SRC)\
-
-#SRCS	=	main.c\
+SRCS	=	main.c\
 			raycasting.c\
 			init_app.c\
 
