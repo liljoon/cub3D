@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+         #
+#    By: yham <yham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:23:57 by isunwoo           #+#    #+#              #
-#    Updated: 2023/05/20 17:20:33 by isunwoo          ###   ########.fr        #
+#    Updated: 2023/06/25 21:32:55 by yham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,21 @@ CFLAGS	=	-g
 #-Wall -Wextra -Werror
 NAME	=	cub3D
 
-SRCS	=	main.c\
+GNL_SRC	=	gnl/get_next_line.c\
+			gnl/get_next_line_utils.c\
+
+SRCS	=	test.c\
+			parsing.c\
+			$(GNL_SRC)\
+
+#SRCS	=	main.c\
 			raycasting.c\
 			init_app.c\
 
 OBJS	=	$(SRCS:.c=.o)
 
 INCS	=	cub3D.h\
+			gnl/gnl.h\
 
 ON_CLUSTER = 1
 
@@ -33,19 +41,25 @@ MLX_L	+= -L./minilibx_opengl_20191021
 MLX_I	+= -I./minilibx_opengl_20191021
 endif
 
+LDFLAGS = -L./libft -lft
+LDFLAGS += $(MLX_L)
+
 $(NAME) : $(OBJS)
-	$(CC) $(OBJS) -o $(NAME) $(MLX_L)
+	make -C ./libft
+	$(CC) $(OBJS) -o $@ $(LDFLAGS)
 
 .SUFFIXES : .c .o
-.c.o : $(INCS)
+.c.o : $(INCS) $(SRCS)
 	$(CC) -c $(CFLAGS) $< -o $@ $(MLX_I)
 
 all : $(NAME)
 
 clean :
+	make clean -C ./libft
 	rm -f $(OBJS)
 
 fclean : clean
+	make fclean -C ./libft
 	rm -f $(NAME) $(OBJS)
 
 re :

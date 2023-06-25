@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_app.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/05/25 21:01:15 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/25 19:50:03 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void init_info(t_cub3d_info *app)
 
 int init_app(t_cub3d_info *app)
 {
-	init_info(app);
+	//init_info(app);
 	mlx_loop_hook(app->pmlx, raycasting, app);
 	mlx_key_hook(app->pmlx_win, key_hook, app);
 	mlx_hook(app->pmlx_win, 17, 0, exit_func, (void *)0);
