@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/25 21:34:40 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/25 21:53:15 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 
 typedef struct s_texture
 {
-	void	*north;
-	void	*south;
-	void	*west;
-	void	*east;
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
 	int		floor[3];
 	int		ceiling[3];
 }	t_texture;
