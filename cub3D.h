@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/05/25 17:01:04 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/25 19:05:40 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # include <stdio.h>
 # include <mlx.h>
 # include <math.h>
+# define screenWidth 640
+# define screenHeight 480
+# define texWidth 64
+# define texHeight 64
 
 typedef struct	s_cub3d_info
 {
@@ -31,6 +35,7 @@ typedef struct	s_cub3d_info
 	double	player_y;
 	double	dirX;
 	double	dirY;
+	void	*wall_textures[4]; // 동서남북 순으로 저장
 
 	int		map[10][10]; // 하드코딩
 } t_cub3d_info;

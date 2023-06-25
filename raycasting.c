@@ -6,13 +6,24 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:38:53 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/05/25 17:00:41 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/25 20:34:08 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	draw_line(t_cub3d_info *app, int screen_x, double wall_height)
+unsigned int get_color(t_cub3d_info *app, double lineHeight, int y, int texX)
+{
+	int texY = (y - (app->screen_heigth / 2 - lineHeight / 2)) / lineHeight * texHeight;
+
+	int t;
+	char *temp = mlx_get_data_addr(app->wall_textures[0], &t, &t, &t); // 임시, 동서남북 판별해야함.
+	unsigned int *k = temp;
+
+	return (k[texY * texWidth + texX]);
+}
+
+void	draw_line(t_cub3d_info *app, int screen_x, double wall_height, int texX)
 {
 	int	y;
 
@@ -20,7 +31,7 @@ void	draw_line(t_cub3d_info *app, int screen_x, double wall_height)
 	while (y < app->screen_heigth)
 	{
 		if (y >= app->screen_heigth / 2 - wall_height / 2 && y < app->screen_heigth / 2 + wall_height / 2)
-			mlx_pixel_put(app->pmlx, app->pmlx_win, screen_x, y, 0xFF0000);
+			mlx_pixel_put(app->pmlx, app->pmlx_win, screen_x, y, get_color(app, wall_height,y,texX));
 		else
 			mlx_pixel_put(app->pmlx, app->pmlx_win, screen_x, y, 0x000000);
 		y++;
@@ -93,7 +104,25 @@ void ray_check(t_cub3d_info *app, int ray_count)
 		perpWallDist = (sideDistY - deltaDistY);
 
 	int wall_height = (int)((app->screen_heigth / 2) / perpWallDist);
-	draw_line(app, ray_count, wall_height);
+
+//texture
+	double wallX; // where exactly the wall was hit
+	if (side == 0)
+		wallX = app->player_y + perpWallDist * rayDirY;
+	else
+		wallX = app->player_x + perpWallDist * rayDirX;
+	wallX -= floor((wallX));
+
+	// x coordinate on the texture
+	int texX = (int)(wallX * (double)(texWidth));
+	if (side == 0 && rayDirX > 0)
+		texX = texWidth - texX - 1;
+	if (side == 1 && rayDirY < 0)
+		texX = texWidth - texX - 1;
+
+//end
+
+	draw_line(app, ray_count, wall_height, texX);
 }
 
 int raycasting(t_cub3d_info *app)
