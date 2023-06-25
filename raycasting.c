@@ -6,32 +6,70 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:38:53 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/25 20:34:08 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/25 21:49:03 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-unsigned int get_color(t_cub3d_info *app, double lineHeight, int y, int texX)
+int find_wall_dir(t_cub3d_info *app, int mapY, int mapX, int side)
 {
-	int texY = (y - (app->screen_heigth / 2 - lineHeight / 2)) / lineHeight * texHeight;
+	if (mapX > app->player_x && mapY <= app->player_y) // 북동
+	{
+		if (side == 1) // 북
+			return 3;
+		else // 동
+			return 0;
+	}
+	else if (mapX <= app->player_x && mapY < app->player_y) // 북서
+	{
+		if (side == 1) // 북
+			return 3;
+		else // 서
+			return 1;
+	}
+	else if (mapX > app->player_x && mapY > app->player_y) // 남동
+	{
+		if (side == 1) // 남
+			return 2;
+		else // 동
+			return 0;
+	}
+	else if (mapX <= app->player_x && mapY > app->player_y) // 남서
+	{
+		if (side == 1) // 남
+			return 2;
+		else // 서
+			return 1;
+	}
+	return 1;
+}
+
+unsigned int get_color(t_cub3d_info *app, double lineHeight, int y_ratio_lineHeight, int texX, int wall_dir)
+{
+	int texY =  y_ratio_lineHeight / lineHeight * texHeight;
 
 	int t;
-	char *temp = mlx_get_data_addr(app->wall_textures[0], &t, &t, &t); // 임시, 동서남북 판별해야함.
+	char *temp = mlx_get_data_addr(app->wall_textures[wall_dir], &t, &t, &t); // 임시, 동서남북 판별해야함.
 	unsigned int *k = temp;
 
 	return (k[texY * texWidth + texX]);
 }
 
-void	draw_line(t_cub3d_info *app, int screen_x, double wall_height, int texX)
+void draw_line(t_cub3d_info *app, int screen_x, double wall_height, int texX, int wall_dir)
 {
 	int	y;
+	int draw_start;
+	int draw_end;
+
+	draw_start = app->screen_heigth / 2 - wall_height / 2;
+	draw_end = app->screen_heigth / 2 + wall_height / 2;
 
 	y = 0;
 	while (y < app->screen_heigth)
 	{
-		if (y >= app->screen_heigth / 2 - wall_height / 2 && y < app->screen_heigth / 2 + wall_height / 2)
-			mlx_pixel_put(app->pmlx, app->pmlx_win, screen_x, y, get_color(app, wall_height,y,texX));
+		if (y >= draw_start && y < draw_end)
+			mlx_pixel_put(app->pmlx, app->pmlx_win, screen_x, y, get_color(app, wall_height, y - draw_start, texX, wall_dir));
 		else
 			mlx_pixel_put(app->pmlx, app->pmlx_win, screen_x, y, 0x000000);
 		y++;
@@ -122,7 +160,7 @@ void ray_check(t_cub3d_info *app, int ray_count)
 
 //end
 
-	draw_line(app, ray_count, wall_height, texX);
+	draw_line(app, ray_count, wall_height, texX, find_wall_dir(app, mapY, mapX, side));
 }
 
 int raycasting(t_cub3d_info *app)
