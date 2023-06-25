@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_app.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/25 22:23:11 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 01:56:07 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,24 +94,25 @@ void init_info(t_cub3d_info *app)
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
-	for(int i=0;i<10;i++)
+	for (int i = 0; i < 10; i++)
 	{
-		for(int j=0;j<10;j++)
+		for (int j = 0; j < 10; j++)
 			app->map[i][j] = map[i][j];
 	}
-	char *wall_path[] = {
-		"images/mossy.xpm",
-		"images/greystone.xpm",
-		"images/bluestone.xpm",
-		"images/redbrick.xpm"
-	};
-	int a,b;
-	for(int i=0; i < 4; i++)
-		app->wall_textures[i] = mlx_xpm_file_to_image(app->pmlx, wall_path[i], &a, &b);
+	char *wall_path[4] = {
+		"./images/mossy.xpm",
+		"./images/greystone.xpm",
+		"./images/bluestone.xpm",
+		"./images/redbrick.xpm"};
+
 	// 하드코딩 끝
 
 	app->pmlx = mlx_init();
 	app->pmlx_win = mlx_new_window(app->pmlx, app->screen_width, app->screen_heigth, "cub3D");
+
+	int a, b;
+	for (int i = 0; i < 4; i++)
+		app->wall_textures[i] = mlx_xpm_file_to_image(app->pmlx, wall_path[i], &a, &b); // 하드코딩
 }
 
 int init_app(t_cub3d_info *app)
