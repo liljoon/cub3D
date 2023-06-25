@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/05/25 17:00:22 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/05/25 21:01:15 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,25 @@
 void player_move(int keycode, t_cub3d_info *app)
 {
 	if (keycode == 0)
-		app->player_x -= 1;
+	{
+		app->player_x += app->dirY;
+		app->player_y -= app->dirX;
+	}
 	else if (keycode == 1)
-		app->player_y += 1;
+	{
+		app->player_x -= app->dirX;
+		app->player_y -= app->dirY;
+	}
 	else if (keycode == 2)
-		app->player_x += 1;
+	{
+		app->player_x -= app->dirY;
+		app->player_y += app->dirX;
+	}
 	else if (keycode == 13)
-		app->player_y -= 1;
-	printf("pushed\n");
-
-	raycasting(app);
+	{
+		app->player_x += app->dirX;
+		app->player_y += app->dirY;
+	}
 }
 
 void player_rotate(int keycode, t_cub3d_info *app)
