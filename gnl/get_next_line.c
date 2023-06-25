@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 17:36:21 by yham              #+#    #+#             */
-/*   Updated: 2023/06/25 21:34:48 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/25 22:21:19 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ static char	*update_keep(char **p_keep, int total_len, int len)
 
 	if (total_len == len || len == 0)
 	{
-		res = ft_strdup(*p_keep);
+		res = gnl_strdup(*p_keep);
 		free(*p_keep);
 		*p_keep = NULL;
 		return (res);
 	}
-	next_keep = ft_strdup(*p_keep + len);
+	next_keep = gnl_strdup(*p_keep + len);
 	(*p_keep)[len] = '\0';
-	res = ft_strdup(*p_keep);
+	res = gnl_strdup(*p_keep);
 	free(*p_keep);
 	*p_keep = next_keep;
 	return (res);
@@ -77,8 +77,8 @@ char	*get_next_line(int fd)
 			return (NULL);
 		}
 		buf[buf_size] = '\0';
-		keep[fd] = ft_strjoin(keep[fd], buf);
+		keep[fd] = gnl_strjoin(keep[fd], buf);
 		n_idx = get_newline_idx(keep[fd]);
 	}
-	return (update_keep(&(keep[fd]), ft_strlen(keep[fd]), n_idx + 1));
+	return (update_keep(&(keep[fd]), gnl_strlen(keep[fd]), n_idx + 1));
 }

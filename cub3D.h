@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/25 21:53:15 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/25 22:19:57 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <stdio.h>
 # include <mlx.h>
 # include <math.h>
-# include <limits.h>
 # include <fcntl.h>
 # include "./libft/libft.h"
 # include "./gnl/gnl.h"
