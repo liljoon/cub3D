@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 18:03:26 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 18:40:45 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ void init_info(t_cub3d_info *app)
 		exit(1);
 	read_file(app, &wall_path);
 
-	// 나중에 변환 필요
-	app->ceiling_color = 0x0099ccff;
-	app->floor_color = 0x008b700c;
+	app->ceiling_color = convert_color(app->ceiling);
+	app->floor_color = convert_color(app->floor);
 
 	app->pmlx = mlx_init();
 	app->pmlx_win = mlx_new_window(app->pmlx, app->screen_width, app->screen_heigth, "cub3D");

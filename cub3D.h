@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 18:15:28 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 18:29:53 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ char	*get_next_line(int fd);
 int set_player_move(int keycode, t_cub3d_info *app);
 int unset_player_move(int keycode, t_cub3d_info *app);
 void check_player_move(t_cub3d_info *app);
+
+unsigned int convert_color(int rgb[]);
 
 #endif
