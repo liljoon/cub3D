@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_app.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yham <yham@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 12:32:12 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 15:03:46 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int exit_func(void)
 void init_info(t_cub3d_info *app)
 {
 	// 테스트용 하드코딩
-	app->screen_width = 720;
-	app->screen_heigth = 480;
+	app->screen_width = screenWidth;
+	app->screen_heigth = screenHeight;
 	app->planeX = 0;
 	app->planeY = 0.66;
 	app->player_x = -1;
@@ -90,12 +90,17 @@ void init_info(t_cub3d_info *app)
 		exit(1);
 	read_file(app, &wall_path);
 
-	int a,b;
-	for(int i=0; i < 4; i++)
-		app->wall_textures[i] = mlx_xpm_file_to_image(app->pmlx, wall_path[i], &a, &b);
+	// 나중에 변환 필요
+	app->ceiling = 0x0099ccff;
+	app->floor = 0x008b700c;
 
 	app->pmlx = mlx_init();
 	app->pmlx_win = mlx_new_window(app->pmlx, app->screen_width, app->screen_heigth, "cub3D");
+	app->buffer_img = mlx_new_image(app->pmlx, app->screen_width, app->screen_heigth);
+
+	int a, b;
+	for (int i = 0; i < 4; i++)
+		app->wall_textures[i] = mlx_xpm_file_to_image(app->pmlx, wall_path[i], &a, &b); // 하드코딩
 }
 
 int init_app(t_cub3d_info *app)
