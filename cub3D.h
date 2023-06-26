@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 15:01:05 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 15:05:33 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 typedef struct	s_cub3d_info
 {
 	char	*filename;
-	unsigned int floor;
-	unsigned int ceiling;
+	unsigned int floor_color;
+	unsigned int ceiling_color;
 	void	*pmlx;
 	void	*pmlx_win;
 	int		screen_width;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yham <yham@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 12:32:30 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 16:00:55 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	init_map_size(t_cub3d_info *app)
 	int		fd;
 	int		line_len;
 	char	*line;
-	
+
 	fd = open(app->filename, O_RDONLY);
 	app->map_width = 0;
 	app->map_height = 0;
@@ -164,15 +164,32 @@ void	init_map_size(t_cub3d_info *app)
 void	set_player(t_cub3d_info *app, char dir, int x, int y)
 {
 	if (dir == 'E')
+	{
 		app->dirX = 1;
+		app->planeX = 0;
+		app->planeY = 0.66;
+	}
 	else if (dir == 'W')
+	{
 		app->dirX = -1;
+		app->planeX = 0;
+		app->planeY = -0.66;
+	}
 	else if (dir == 'S')
+	{
 		app->dirY = 1;
+		app->planeX = -0.66;
+		app->planeY = 0;
+	}
 	else if (dir == 'N')
+	{
 		app->dirY = -1;
+		app->planeX = 0.66;
+		app->planeY = 0;
+	}
 	app->player_x = x;
 	app->player_y = y;
+	printf("%d %d\n",x, y);
 }
 
 void	fill_map(t_cub3d_info *app, char *line, int i)
@@ -180,7 +197,7 @@ void	fill_map(t_cub3d_info *app, char *line, int i)
 	int	j;
 
 	j = 0;
-	while (j < app->map_width)
+	while (j < ft_strlen(j))
 	{
 		if (line[j] == ' ')
 			app->map[i][j] = 0;
@@ -188,8 +205,8 @@ void	fill_map(t_cub3d_info *app, char *line, int i)
 			app->map[i][j] = line[j] - '0';
 		else
 		{
-			app->map[i][j] = line[j];
-			set_player(app, line[j], i, j);
+			app->map[i][j] = 0;
+			set_player(app, line[j], j, i);
 		}
 		j++;
 	}
@@ -222,7 +239,6 @@ void	read_file(t_cub3d_info *app, char ***wall_path)
 			continue ;
 		}
 		line = ft_strtrim(line, "\n");
-		printf("line:%s\n", line);
 		if (check_tex_filled(app, wall_path))
 		{
 			if (!check_char(line, ft_strlen(line)))
@@ -236,19 +252,4 @@ void	read_file(t_cub3d_info *app, char ***wall_path)
 	}
 	close(fd);
 	check_elem(app);
-}
-
-void	check_file(char *filename)
-{
-	int	file_len;
-
-	file_len = ft_strlen(filename);
-	if (!(filename[file_len - 4] == '.' \
-		&& filename[file_len - 3] == 'c' \
-		&& filename[file_len - 2] == 'u' \
-		&& filename[file_len - 1] == 'b'))
-	{
-		printf("file error\n");
-		exit(1);
-	}
 }

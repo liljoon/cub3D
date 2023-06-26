@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 15:03:46 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 16:01:54 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void init_info(t_cub3d_info *app)
 	app->screen_width = screenWidth;
 	app->screen_heigth = screenHeight;
 	app->planeX = 0;
-	app->planeY = 0.66;
+	app->planeY = 0;
 	app->player_x = -1;
 	app->player_y = -1;
 	app->dirX = 0;
@@ -91,8 +91,8 @@ void init_info(t_cub3d_info *app)
 	read_file(app, &wall_path);
 
 	// 나중에 변환 필요
-	app->ceiling = 0x0099ccff;
-	app->floor = 0x008b700c;
+	app->ceiling_color = 0x0099ccff;
+	app->floor_color = 0x008b700c;
 
 	app->pmlx = mlx_init();
 	app->pmlx_win = mlx_new_window(app->pmlx, app->screen_width, app->screen_heigth, "cub3D");
@@ -105,7 +105,7 @@ void init_info(t_cub3d_info *app)
 
 int init_app(t_cub3d_info *app)
 {
-	//init_info(app);
+	init_info(app);
 	mlx_loop_hook(app->pmlx, raycasting, app);
 	mlx_key_hook(app->pmlx_win, key_hook, app);
 	mlx_hook(app->pmlx_win, 17, 0, exit_func, (void *)0);

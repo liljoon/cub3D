@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:38:53 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 14:33:38 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 15:20:31 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ void draw_line(t_cub3d_info *app, int screen_x, double wall_height, int texX, in
 		if (y >= draw_start && y < draw_end)
 			put_pixel_img(app, screen_x, y, get_color(app, wall_height, y - draw_start, texX, wall_dir));
 		else if (y < app->screen_heigth / 2)
-			put_pixel_img(app, screen_x, y, app->ceiling);
+			put_pixel_img(app, screen_x, y, app->ceiling_color);
 		else if (y >= app->screen_heigth / 2)
-			put_pixel_img(app, screen_x, y, app->floor);
+			put_pixel_img(app, screen_x, y, app->floor_color);
 		y++;
 	}
 }
