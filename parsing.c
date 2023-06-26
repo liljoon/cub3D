@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 19:34:31 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 19:55:52 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	set_player(t_cub3d_info *app, char dir, int x, int y)
 		app->planeX = 0.66;
 		app->planeY = 0;
 	}
-	app->player_x = x;
-	app->player_y = y;
+	app->player_x = x + 0.5;
+	app->player_y = y + 0.5;
 }
 
 void	fill_map(t_cub3d_info *app, char *line, int i)
