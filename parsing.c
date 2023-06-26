@@ -6,38 +6,11 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 16:20:17 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 18:58:26 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-void	init_texture(t_cub3d_info *app, char ***wall_path)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		(*wall_path)[i] = NULL;
-		if (i < 3)
-		{
-			app->floor[i] = -1;
-			app->ceiling[i] = -1;
-		}
-		i++;
-	}
-}
-
-int	cnt_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-		i++;
-	return (i);
-}
 
 void	add_color(t_cub3d_info *app, char *colors, int floor)
 {
@@ -81,86 +54,6 @@ void	add_texture(t_cub3d_info *app, char *line, char ***wall_path)
 		add_color(app, split[1], 0);
 }
 
-int	check_tex_filled(t_cub3d_info *app, char ***wall_path)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		if ((*wall_path)[i] == NULL)
-			return (0);
-		if (i < 3 && (app->floor[i] == -1 || app->ceiling[i] == -1))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	check_char(char *line, int len)
-{
-	int	i;
-
-	i = 0;
-	while (i < len)
-	{
-		if (!(line[i] == '0' || line[i] == '1' \
-			|| line[i] == 'E' || line[i] == 'W' \
-			|| line[i] == 'S' || line[i] == 'N' \
-			|| line[i] == ' '))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	init_map(t_cub3d_info *app)
-{
-	int	i;
-
-	app->map = malloc(sizeof(int *) * app->map_height);
-	if (!(app->map))
-		exit(1);
-	i = 0;
-	while (i < app->map_height)
-	{
-		app->map[i] = malloc(sizeof(int) * app->map_width);
-		if (!(app->map[i]))
-			exit(1);
-		i++;
-	}
-}
-
-void	init_map_size(t_cub3d_info *app)
-{
-	int		fd;
-	int		line_len;
-	char	*line;
-
-	fd = open(app->filename, O_RDONLY);
-	app->map_width = 0;
-	app->map_height = 0;
-	line = get_next_line(fd);
-	while (line)
-	{
-		if (line[0] == '\n')
-		{
-			line = get_next_line(fd);
-			continue ;
-		}
-		line = ft_strtrim(line, "\n");
-		line_len = ft_strlen(line);
-		if (check_char(line, line_len))
-		{
-			if (app->map_width < line_len)
-				app->map_width = line_len;
-			app->map_height++;
-		}
-		line = get_next_line(fd);
-	}
-	init_map(app);
-}
-
 void	set_player(t_cub3d_info *app, char dir, int x, int y)
 {
 	if (dir == 'E')
@@ -201,7 +94,7 @@ void	fill_map(t_cub3d_info *app, char *line, int i)
 	while (j < len)
 	{
 		if (line[j] == ' ')
-			app->map[i][j] = 0;
+			app->map[i][j] = -1;
 		else if (line[j] == '0' || line[j] == '1')
 			app->map[i][j] = line[j] - '0';
 		else if (line[j] == 'E' || line[j] == 'W' \
@@ -214,16 +107,9 @@ void	fill_map(t_cub3d_info *app, char *line, int i)
 	}
 	while (j < app->map_width)
 	{
-		app->map[i][j] = 0;
+		app->map[i][j] = -1;
 		j++;
 	}
-}
-
-void	check_elem(t_cub3d_info *app)
-{
-	if ((!app->map || app->player_x == -1 || app->player_y == -1)\
-		|| (app->dirX == 0 && app->dirY == 0))
-		exit(1);
 }
 
 void	read_file(t_cub3d_info *app, char ***wall_path)
@@ -259,4 +145,6 @@ void	read_file(t_cub3d_info *app, char ***wall_path)
 	}
 	close(fd);
 	check_elem(app);
+	check_map(app);
+	fill_blank(app);
 }

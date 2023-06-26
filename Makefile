@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+         #
+#    By: yham <yham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:23:57 by isunwoo           #+#    #+#              #
-#    Updated: 2023/06/26 18:43:14 by isunwoo          ###   ########.fr        #
+#    Updated: 2023/06/26 16:33:14 by yham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,9 @@ SRCS	=	main.c\
 			raycasting.c\
 			init_app.c\
 			parsing.c\
+			parsing_map.c\
+			parsing_check.c\
+			parsing_utils.c\
 			player_movement.c\
 			utils.c\
 			$(GNL_SRC)\
