@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 21:03:50 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 21:18:45 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <fcntl.h>
 # include "./libft/libft.h"
 # include "./gnl/gnl.h"
-# define SCREENWIDTH 640
-# define SCREENHEIGHT 480
+# define SCNWIDTH 640
+# define SCNHEIGHT 480
 # define TEXWIDTH 64
 # define TEXHEIGHT 64
 # define PLAYER_MOVE_SPEED 0.05
@@ -35,16 +35,14 @@ typedef struct s_cub3d_info
 	unsigned int	ceiling_color;
 	void			*pmlx;
 	void			*pmlx_win;
-	int				screen_width;
-	int				screen_heigth;
-	double			planeX;
-	double			planeY;
+	double			plane_x;
+	double			plane_y;
 	double			player_x;
 	double			player_y;
 	int				player_moving[4];
 	int				player_rotating;
-	double			dirX;
-	double			dirY;
+	double			dir_x;
+	double			dir_y;
 	void			*wall_textures[4];
 	int				floor[3];
 	int				ceiling[3];
@@ -65,7 +63,8 @@ void			init_map_size(t_cub3d_info *app);
 void			dfs_map(int curr_x, int curr_y, int **visited, \
 	t_cub3d_info *app);
 
-int				check_tex_filled(t_cub3d_info *app, char ***wall_path, int elem_cnt);
+int				check_tex_filled(\
+	t_cub3d_info *app, char ***wall_path, int elem_cnt);
 int				check_char(char *line, int len);
 void			check_map_info(t_cub3d_info *app);
 int				check_wall(int x, int y, t_cub3d_info *app);
@@ -80,10 +79,7 @@ void			check_colors(char *colors);
 int				set_player_move(int keycode, t_cub3d_info *app);
 int				unset_player_move(int keycode, t_cub3d_info *app);
 void			check_player_move(t_cub3d_info *app);
-
-int				set_player_move(int keycode, t_cub3d_info *app);
-int				unset_player_move(int keycode, t_cub3d_info *app);
-void			check_player_move(t_cub3d_info *app);
+void			player_rotate(t_cub3d_info *app);
 
 unsigned int	convert_color(int rgb[]);
 void			print_err(char *msg);
