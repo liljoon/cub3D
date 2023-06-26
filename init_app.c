@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 20:27:11 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 21:16:20 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,12 @@ int	exit_func(void)
 	exit(0);
 }
 
-void	init_info(t_cub3d_info *app)
+void	set_info(t_cub3d_info *app)
 {
-	int		i;
 	char	**wall_path;
+	int		i;
+	int		t;
 
-	app->screen_width = SCREENWIDTH;
-	app->screen_heigth = SCREENHEIGHT;
-	app->planeX = 0;
-	app->planeY = 0;
-	app->player_x = -1;
-	app->player_y = -1;
-	app->dirX = 0;
-	app->dirY = 0;
-	app->map = NULL;
-	i = 0;
-	while (i < 4)
-		app->player_moving[i++] = 0;
-	app->player_rotating = 0;
 	init_map_size(app);
 	wall_path = malloc(sizeof(char *) * 4);
 	if (!wall_path)
@@ -43,17 +31,37 @@ void	init_info(t_cub3d_info *app)
 	app->ceiling_color = convert_color(app->ceiling);
 	app->floor_color = convert_color(app->floor);
 	app->pmlx = mlx_init();
-	app->pmlx_win = mlx_new_window(app->pmlx, app->screen_width, app->screen_heigth, "cub3D");
-	app->buffer_img = mlx_new_image(app->pmlx, app->screen_width, app->screen_heigth);
-	int a, b;
+	app->pmlx_win = mlx_new_window(app->pmlx, SCNWIDTH, SCNHEIGHT, "cub3D");
+	app->buffer_img = mlx_new_image(app->pmlx, SCNWIDTH, SCNHEIGHT);
 	i = 0;
 	while (i < 4)
 	{
-		app->wall_textures[i] = mlx_xpm_file_to_image(app->pmlx, wall_path[i], &a, &b);
+		app->wall_textures[i] = mlx_xpm_file_to_image(\
+			app->pmlx, wall_path[i], &t, &t);
 		if (app->wall_textures[i] == NULL)
 			print_err("invalid texture file\n");
+		free(wall_path[i]);
 		i++;
 	}
+	free(wall_path);
+}
+
+void	init_info(t_cub3d_info *app)
+{
+	int		i;
+
+	app->plane_x = 0;
+	app->plane_y = 0;
+	app->player_x = -1;
+	app->player_y = -1;
+	app->dir_x = 0;
+	app->dir_y = 0;
+	app->map = NULL;
+	i = 0;
+	while (i < 4)
+		app->player_moving[i++] = 0;
+	app->player_rotating = 0;
+	set_info(app);
 }
 
 int	init_app(t_cub3d_info *app)

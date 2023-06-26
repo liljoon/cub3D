@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:38:53 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 19:48:04 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 21:16:20 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	put_pixel_img(t_cub3d_info *app, int x, int y, unsigned int color)
 	unsigned int	*img_addr;
 
 	img_addr = (unsigned int *)mlx_get_data_addr(app->buffer_img, &t, &t, &t);
-	img_addr[app->screen_width * y + x] = color;
+	img_addr[SCNWIDTH * y + x] = color;
 }
 
 void	draw_line(t_cub3d_info *app, int screen_x, double wall_height, int texX, int wall_dir)
@@ -69,17 +69,17 @@ void	draw_line(t_cub3d_info *app, int screen_x, double wall_height, int texX, in
 	int	draw_start;
 	int	draw_end;
 
-	draw_start = app->screen_heigth / 2 - wall_height / 2;
-	draw_end = app->screen_heigth / 2 + wall_height / 2;
+	draw_start = SCNHEIGHT / 2 - wall_height / 2;
+	draw_end = SCNHEIGHT / 2 + wall_height / 2;
 	y = 0;
-	while (y < app->screen_heigth)
+	while (y < SCNHEIGHT)
 	{
 		if (y >= draw_start && y < draw_end)
 			put_pixel_img(app, screen_x, y, \
 				get_color(app, wall_height, y - draw_start, texX, wall_dir));
-		else if (y < app->screen_heigth / 2)
+		else if (y < SCNHEIGHT / 2)
 			put_pixel_img(app, screen_x, y, app->ceiling_color);
-		else if (y >= app->screen_heigth / 2)
+		else if (y >= SCNHEIGHT / 2)
 			put_pixel_img(app, screen_x, y, app->floor_color);
 		y++;
 	}
@@ -87,9 +87,9 @@ void	draw_line(t_cub3d_info *app, int screen_x, double wall_height, int texX, in
 
 void	ray_check(t_cub3d_info *app, int ray_count)
 {
-	double cameraX = 2 * ray_count / (double)app->screen_width - 1; // x-coordinate in camera space
-	double rayDirX = app->dirX + app->planeX * cameraX;
-	double rayDirY = app->dirY + app->planeY * cameraX;
+	double cameraX = 2 * ray_count / (double)SCNWIDTH - 1; // x-coordinate in camera space
+	double rayDirX = app->dir_x + app->plane_x * cameraX;
+	double rayDirY = app->dir_y + app->plane_y * cameraX;
 	int mapX = (int)app->player_x;
 	int mapY = (int)app->player_y;
 	double sideDistX;
@@ -150,7 +150,7 @@ void	ray_check(t_cub3d_info *app, int ray_count)
 	else
 		perpWallDist = (sideDistY - deltaDistY);
 
-	int wall_height = (int)((app->screen_heigth / 2) / perpWallDist);
+	int wall_height = (int)((SCNHEIGHT / 2) / perpWallDist);
 
 //texture
 	double wallX; // where exactly the wall was hit
@@ -177,8 +177,10 @@ int	raycasting(t_cub3d_info *app)
 	int		ray_count;
 
 	check_player_move(app);
+	if (app->player_rotating != 0)
+		player_rotate(app);
 	ray_count = 0;
-	while (ray_count < app->screen_width)
+	while (ray_count < SCNWIDTH)
 	{
 		ray_check(app, ray_count);
 		ray_count++;

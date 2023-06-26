@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 19:55:52 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 21:16:20 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,27 +59,27 @@ void	set_player(t_cub3d_info *app, char dir, int x, int y)
 {
 	if (dir == 'E')
 	{
-		app->dirX = 1;
-		app->planeX = 0;
-		app->planeY = 0.66;
+		app->dir_x = 1;
+		app->plane_x = 0;
+		app->plane_y = 0.66;
 	}
 	else if (dir == 'W')
 	{
-		app->dirX = -1;
-		app->planeX = 0;
-		app->planeY = -0.66;
+		app->dir_x = -1;
+		app->plane_x = 0;
+		app->plane_y = -0.66;
 	}
 	else if (dir == 'S')
 	{
-		app->dirY = 1;
-		app->planeX = -0.66;
-		app->planeY = 0;
+		app->dir_y = 1;
+		app->plane_x = -0.66;
+		app->plane_y = 0;
 	}
 	else if (dir == 'N')
 	{
-		app->dirY = -1;
-		app->planeX = 0.66;
-		app->planeY = 0;
+		app->dir_y = -1;
+		app->plane_x = 0.66;
+		app->plane_y = 0;
 	}
 	app->player_x = x + 0.5;
 	app->player_y = y + 0.5;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:28:07 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 19:46:26 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 21:16:20 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	check_char(char *line, int len)
 void	check_map_info(t_cub3d_info *app)
 {
 	if ((!app->map || app->player_x == -1 || app->player_y == -1) \
-		|| (app->dirX == 0 && app->dirY == 0))
+		|| (app->dir_x == 0 && app->dir_y == 0))
 		print_err("invalid map\n");
 }
 
