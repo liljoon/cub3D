@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 21:18:45 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 23:00:44 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,38 @@ typedef struct s_cub3d_info
 	int				**map;
 }	t_cub3d_info;
 
+typedef struct s_raycasting_info
+{
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	int		mapX;
+	int		mapY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
+	int		stepX;
+	int		stepY;
+	int		hit;
+	int		side;
+	int		wall_height;
+	double	wallX;
+	int		texX;
+}	t_raycasting_info;
+
 int				init_app(t_cub3d_info *app);
 int				raycasting(t_cub3d_info *app);
+
+int				find_wall_dir(t_cub3d_info *app, int mapY, int mapX, int side);
+unsigned int	get_color(\
+	t_cub3d_info *app, t_raycasting_info *rc, \
+	int y_ratio_lineHeight, int wall_dir);
+void			put_pixel_img(\
+	t_cub3d_info *app, int x, int y, unsigned int color);
+void			draw_line(t_cub3d_info *app, t_raycasting_info *rc, \
+	int screen_x, int wall_dir);
 
 char			*get_next_line(int fd);
 
