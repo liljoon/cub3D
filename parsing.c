@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 16:00:55 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 16:09:49 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,6 @@ void	set_player(t_cub3d_info *app, char dir, int x, int y)
 	}
 	app->player_x = x;
 	app->player_y = y;
-	printf("%d %d\n",x, y);
 }
 
 void	fill_map(t_cub3d_info *app, char *line, int i)
@@ -197,7 +196,7 @@ void	fill_map(t_cub3d_info *app, char *line, int i)
 	int	j;
 
 	j = 0;
-	while (j < ft_strlen(j))
+	while (j < app->map_width)
 	{
 		if (line[j] == ' ')
 			app->map[i][j] = 0;
