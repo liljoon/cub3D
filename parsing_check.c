@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:28:07 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 21:16:20 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 21:18:59 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,5 @@ void	check_map(t_cub3d_info *app)
 		}
 		i++;
 	}
+	free_visited(visited, app->map_height);
 }

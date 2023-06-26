@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:31:58 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 19:16:00 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 21:06:53 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,25 @@ void	fill_blank(t_cub3d_info *app)
 		}
 		i++;
 	}
+}
+
+void	check_colors(char *colors)
+{
+	int	i;
+	int	cnt;
+	int	len;
+
+	i = 0;
+	cnt = 0;
+	len = ft_strlen(colors);
+	while (i < len)
+	{
+		if (colors[i] == ',')
+			cnt++;
+		if (!((colors[i] >= '0' && colors[i] <= '9') || colors[i] == ','))
+			print_err("invalid element\n");
+		i++;
+	}
+	if (cnt != 2)
+		print_err("invalid element\n");
 }

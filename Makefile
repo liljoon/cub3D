@@ -6,7 +6,7 @@
 #    By: yham <yham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:23:57 by isunwoo           #+#    #+#              #
-#    Updated: 2023/06/26 16:33:14 by yham             ###   ########.fr        #
+#    Updated: 2023/06/26 20:54:41 by yham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS	=	main.c\
 			parsing_utils.c\
 			player_movement.c\
 			utils.c\
+			free.c\
 			$(GNL_SRC)\
 
 OBJS	=	$(SRCS:.c=.o)

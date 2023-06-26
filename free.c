@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/26 18:26:32 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 20:25:09 by yham             ###   ########.fr       */
+/*   Created: 2023/06/26 20:54:31 by yham              #+#    #+#             */
+/*   Updated: 2023/06/26 20:57:41 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-unsigned int	convert_color(int rgb[])
+void	free_split(char **split)
 {
-	unsigned int	ret;
+	int	i;
 
-	ret = (rgb[0] << 16) + (rgb[1] << 8) + rgb[2];
-	return (ret);
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }
 
-void	print_err(char *msg)
+void	free_visited(int **visited, int height)
 {
-	write(2, "Error\n", 6);
-	write(2, msg, ft_strlen(msg));
-	exit(1);
+	int	i;
+
+	i = 0;
+	while (i < height)
+	{
+		free(visited[i]);
+		i++;
+	}
+	free(visited);
 }
