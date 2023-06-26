@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:32:58 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 18:22:12 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 18:54:13 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,28 +45,29 @@ int	set_player_move(int keycode, t_cub3d_info *app)
 		app->player_rotating = -1;
 	else if (keycode == 124)
 		app->player_rotating = 1;
-
 	return (0);
 }
 
-void player_rotate(t_cub3d_info *app)
+void	player_rotate(t_cub3d_info *app)
 {
-	double rotSpeed;
+	double	rot_speed;
+	double	old_dir_x;
+	double	old_plane_x;
 
-	rotSpeed = player_rotate_speed * app->player_rotating;
-	double oldDirX = app->dirX;
-	app->dirX = app->dirX * cos(rotSpeed) - app->dirY * sin(rotSpeed);
-	app->dirY = oldDirX * sin(rotSpeed) + app->dirY * cos(rotSpeed);
-	double oldPlaneX = app->planeX;
-	app->planeX = app->planeX * cos(rotSpeed) - app->planeY * sin(rotSpeed);
-	app->planeY = oldPlaneX * sin(rotSpeed) + app->planeY * cos(rotSpeed);
+	rot_speed = player_rotate_speed * app->player_rotating;
+	old_dir_x = app->dirX;
+	app->dirX = app->dirX * cos(rot_speed) - app->dirY * sin(rot_speed);
+	app->dirY = old_dir_x * sin(rot_speed) + app->dirY * cos(rot_speed);
+	old_plane_x = app->planeX;
+	app->planeX = app->planeX * cos(rot_speed) - app->planeY * sin(rot_speed);
+	app->planeY = old_plane_x * sin(rot_speed) + app->planeY * cos(rot_speed);
 }
 
 int	check_wall_collision(int **map, double x, double y)
 {
 	if (map[(int)y][(int)x] == 1)
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }
 
 void	check_player_move(t_cub3d_info *app)
@@ -104,4 +105,3 @@ void	check_player_move(t_cub3d_info *app)
 	if (app->player_rotating != 0)
 		player_rotate(app);
 }
-

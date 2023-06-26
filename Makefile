@@ -6,13 +6,12 @@
 #    By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:23:57 by isunwoo           #+#    #+#              #
-#    Updated: 2023/06/26 18:30:59 by isunwoo          ###   ########.fr        #
+#    Updated: 2023/06/26 18:43:14 by isunwoo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		= 	cc
-CFLAGS	=	-g
-#-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 NAME	=	cub3D
 
 GNL_SRC	=	gnl/get_next_line.c\
