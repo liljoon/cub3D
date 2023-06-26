@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:32:58 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 18:06:53 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 18:22:12 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,20 @@ void player_rotate(t_cub3d_info *app)
 	app->planeY = oldPlaneX * sin(rotSpeed) + app->planeY * cos(rotSpeed);
 }
 
+int	check_wall_collision(int **map, double x, double y)
+{
+	if (map[(int)y][(int)x] == 1)
+		return 1;
+	return 0;
+}
+
 void	check_player_move(t_cub3d_info *app)
 {
+	double	old_x;
+	double	old_y;
+
+	old_x = app->player_x;
+	old_y = app->player_y;
 	if (app->player_moving[0])
 	{
 		app->player_x += app->dirY * player_move_speed;
@@ -83,6 +95,11 @@ void	check_player_move(t_cub3d_info *app)
 	{
 		app->player_x += app->dirX * player_move_speed;
 		app->player_y += app->dirY * player_move_speed;
+	}
+	if (check_wall_collision(app->map, app->player_x, app->player_y))
+	{
+		app->player_x = old_x;
+		app->player_y = old_y;
 	}
 	if (app->player_rotating != 0)
 		player_rotate(app);
