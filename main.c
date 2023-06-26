@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:43:49 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 19:15:21 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 20:47:37 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	check_file(char *filename)
 		print_err("invalid file\n");
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
 	t_cub3d_info	app;
 
