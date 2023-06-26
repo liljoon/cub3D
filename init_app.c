@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 17:58:14 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 18:03:26 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void init_info(t_cub3d_info *app)
 	app->map = NULL;
 	for(int i=0;i<4;i++)
 		app->player_moving[i] = 0;
+	app->player_rotating = 0;
 
 	init_map_size(app);
 
