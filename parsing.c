@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 19:52:07 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 19:55:52 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	add_color(t_cub3d_info *app, char *colors, int floor)
 	}
 }
 
-void	add_texture(t_cub3d_info *app, char *line, char ***wall_path)
+void	add_texture(t_cub3d_info *app, char *line, char ***wall_path, int *cnt)
 {
 	char	**split;
 
@@ -39,7 +39,7 @@ void	add_texture(t_cub3d_info *app, char *line, char ***wall_path)
 	if (cnt_split(split) == 0)
 		return ;
 	if (cnt_split(split) != 2)
-		exit(1);
+		print_err("invalid element\n");
 	if (ft_strncmp(split[0], "EA", 2) == 0)
 		(*wall_path)[0] = split[1];
 	else if (ft_strncmp(split[0], "WE", 2) == 0)
@@ -52,6 +52,7 @@ void	add_texture(t_cub3d_info *app, char *line, char ***wall_path)
 		add_color(app, split[1], 1);
 	else if (ft_strncmp(split[0], "C", 1) == 0)
 		add_color(app, split[1], 0);
+	(*cnt)++;
 }
 
 void	set_player(t_cub3d_info *app, char dir, int x, int y)
@@ -116,14 +117,16 @@ void	read_file(t_cub3d_info *app, char ***wall_path)
 {
 	int		i;
 	int		fd;
+	int		elem_cnt;
 	char	*line;
 
 	init_texture(app, wall_path);
 	fd = open(app->filename, O_RDONLY);
 	if (fd < 0)
-		exit(1);
+		print_err("invalid file\n");
 	line = get_next_line(fd);
 	i = 0;
+	elem_cnt = 0;
 	while (line)
 	{
 		if (line[0] == '\n')
@@ -132,19 +135,19 @@ void	read_file(t_cub3d_info *app, char ***wall_path)
 			continue ;
 		}
 		line = ft_strtrim(line, "\n");
-		if (check_tex_filled(app, wall_path))
+		if (check_tex_filled(app, wall_path, elem_cnt))
 		{
 			if (!check_char(line, ft_strlen(line)))
-				exit(1);
+				print_err("invalid map\n");
 			fill_map(app, line, i);
 			i++;
 		}
 		else
-			add_texture(app, line, wall_path);
+			add_texture(app, line, wall_path, &elem_cnt);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	check_elem(app);
+	check_map_info(app);
 	check_map(app);
 	fill_blank(app);
 }

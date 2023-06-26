@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 19:13:15 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 19:55:40 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_info(t_cub3d_info *app)
 	init_map_size(app);
 	wall_path = malloc(sizeof(char *) * 4);
 	if (!wall_path)
-		exit(1);
+		print_err("malloc error\n");
 	read_file(app, &wall_path);
 	app->ceiling_color = convert_color(app->ceiling);
 	app->floor_color = convert_color(app->floor);
