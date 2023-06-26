@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yham <yham@student.42.fr>                  +#+  +:+       +#+         #
+#    By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:23:57 by isunwoo           #+#    #+#              #
-#    Updated: 2023/06/26 22:05:33 by yham             ###   ########.fr        #
+#    Updated: 2023/06/26 22:57:06 by isunwoo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ GNL_SRC	=	gnl/get_next_line.c\
 
 SRCS	=	main.c\
 			raycasting.c\
+			raycasting_utils.c\
 			init_app.c\
 			parsing.c\
 			parsing_map.c\

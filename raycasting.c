@@ -6,170 +6,93 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:38:53 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 21:16:20 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 23:01:04 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	find_wall_dir(t_cub3d_info *app, int mapY, int mapX, int side)
+void	init_ray_info1(t_raycasting_info *rc, t_cub3d_info *app, int ray_count)
 {
-	if (mapX > app->player_x && mapY <= app->player_y)
-	{
-		if (side == 1)
-			return (3);
-		return (0);
-	}
-	else if (mapX <= app->player_x && mapY <= app->player_y)
-	{
-		if (side == 1)
-			return (3);
-		return (1);
-	}
-	else if (mapX > app->player_x && mapY > app->player_y)
-	{
-		if (side == 1)
-			return (2);
-		return (0);
-	}
-	else if (mapX <= app->player_x && mapY > app->player_y)
-	{
-		if (side == 1)
-			return (2);
-		return (1);
-	}
-	return (0);
+	rc->cameraX = 2 * ray_count / (double)SCNWIDTH - 1;
+	rc->rayDirX = app->dir_x + app->plane_x * rc->cameraX;
+	rc->rayDirY = app->dir_y + app->plane_y * rc->cameraX;
+	rc->mapX = (int)app->player_x;
+	rc->mapY = (int)app->player_y;
+	rc->deltaDistX = fabs(1 / rc->rayDirX);
+	rc->deltaDistY = fabs(1 / rc->rayDirY);
 }
 
-unsigned int	get_color(t_cub3d_info *app, double lineHeight, \
-	int y_ratio_lineHeight, int texX, int wall_dir)
+void	init_ray_info2(t_raycasting_info *rc, t_cub3d_info *app)
 {
-	int				tex_y;
-	int				t;
-	unsigned int	*k;
-
-	tex_y = y_ratio_lineHeight / lineHeight * TEXHEIGHT;
-	k = (unsigned int *)mlx_get_data_addr(app->wall_textures[wall_dir], \
-		&t, &t, &t);
-	return (k[tex_y * TEXWIDTH + texX]);
-}
-
-void	put_pixel_img(t_cub3d_info *app, int x, int y, unsigned int color)
-{
-	int				t;
-	unsigned int	*img_addr;
-
-	img_addr = (unsigned int *)mlx_get_data_addr(app->buffer_img, &t, &t, &t);
-	img_addr[SCNWIDTH * y + x] = color;
-}
-
-void	draw_line(t_cub3d_info *app, int screen_x, double wall_height, int texX, int wall_dir)
-{
-	int	y;
-	int	draw_start;
-	int	draw_end;
-
-	draw_start = SCNHEIGHT / 2 - wall_height / 2;
-	draw_end = SCNHEIGHT / 2 + wall_height / 2;
-	y = 0;
-	while (y < SCNHEIGHT)
+	if (rc->rayDirX < 0)
 	{
-		if (y >= draw_start && y < draw_end)
-			put_pixel_img(app, screen_x, y, \
-				get_color(app, wall_height, y - draw_start, texX, wall_dir));
-		else if (y < SCNHEIGHT / 2)
-			put_pixel_img(app, screen_x, y, app->ceiling_color);
-		else if (y >= SCNHEIGHT / 2)
-			put_pixel_img(app, screen_x, y, app->floor_color);
-		y++;
+		rc->stepX = -1;
+		rc->sideDistX = (app->player_x - rc->mapX) * rc->deltaDistX;
+	}
+	else
+	{
+		rc->stepX = 1;
+		rc->sideDistX = (rc->mapX + 1.0 - app->player_x) * rc->deltaDistX;
+	}
+	if (rc->rayDirY < 0)
+	{
+		rc->stepY = -1;
+		rc->sideDistY = (app->player_y - rc->mapY) * rc->deltaDistY;
+	}
+	else
+	{
+		rc->stepY = 1;
+		rc->sideDistY = (rc->mapY + 1.0 - app->player_y) * rc->deltaDistY;
+	}
+}
+
+void	ddf(t_cub3d_info *app, t_raycasting_info *rc)
+{
+	rc->hit = 0;
+	while (rc->hit == 0)
+	{
+		if (rc->sideDistX < rc->sideDistY)
+		{
+			rc->sideDistX += rc->deltaDistX;
+			rc->mapX += rc->stepX;
+			rc->side = 0;
+		}
+		else
+		{
+			rc->sideDistY += rc->deltaDistY;
+			rc->mapY += rc->stepY;
+			rc->side = 1;
+		}
+		if (app->map[rc->mapY][rc->mapX] > 0)
+			rc->hit = 1;
 	}
 }
 
 void	ray_check(t_cub3d_info *app, int ray_count)
 {
-	double cameraX = 2 * ray_count / (double)SCNWIDTH - 1; // x-coordinate in camera space
-	double rayDirX = app->dir_x + app->plane_x * cameraX;
-	double rayDirY = app->dir_y + app->plane_y * cameraX;
-	int mapX = (int)app->player_x;
-	int mapY = (int)app->player_y;
-	double sideDistX;
-	double sideDistY;
+	t_raycasting_info	rc;
 
-	double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
-	double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
-	double perpWallDist;
-	int stepX;
-	int stepY;
-
-	int hit = 0; // was there a wall hit?
-	int side;	 // was a NS or a EW wall hit?
-	// calculate step and initial sideDist
-	if (rayDirX < 0)
-	{
-		stepX = -1;
-		sideDistX = (app->player_x - mapX) * deltaDistX;
-	}
+	init_ray_info1(&rc, app, ray_count);
+	init_ray_info2(&rc, app);
+	ddf(app, &rc);
+	if (rc.side == 0)
+		rc.perpWallDist = (rc.sideDistX - rc.deltaDistX);
 	else
-	{
-		stepX = 1;
-		sideDistX = (mapX + 1.0 - app->player_x) * deltaDistX;
-	}
-	if (rayDirY < 0)
-	{
-		stepY = -1;
-		sideDistY = (app->player_y - mapY) * deltaDistY;
-	}
+		rc.perpWallDist = (rc.sideDistY - rc.deltaDistY);
+	rc.wall_height = (int)((SCNHEIGHT / 2) / rc.perpWallDist);
+	if (rc.side == 0)
+		rc.wallX = app->player_y + rc.perpWallDist * rc.rayDirY;
 	else
-	{
-		stepY = 1;
-		sideDistY = (mapY + 1.0 - app->player_y) * deltaDistY;
-	}
-	// perform DDA
-	while (hit == 0)
-	{
-		// jump to next map square, either in x-direction, or in y-direction
-		if (sideDistX < sideDistY)
-		{
-			sideDistX += deltaDistX;
-			mapX += stepX;
-			side = 0;
-		}
-		else
-		{
-			sideDistY += deltaDistY;
-			mapY += stepY;
-			side = 1;
-		}
-		// Check if ray has hit a wall
-		if (app->map[mapY][mapX] > 0)
-			hit = 1;
-	}
-
-	if (side == 0)
-		perpWallDist = (sideDistX - deltaDistX);
-	else
-		perpWallDist = (sideDistY - deltaDistY);
-
-	int wall_height = (int)((SCNHEIGHT / 2) / perpWallDist);
-
-//texture
-	double wallX; // where exactly the wall was hit
-	if (side == 0)
-		wallX = app->player_y + perpWallDist * rayDirY;
-	else
-		wallX = app->player_x + perpWallDist * rayDirX;
-	wallX -= floor((wallX));
-
-	// x coordinate on the texture
-	int texX = (int)(wallX * (double)(TEXWIDTH));
-	if (side == 0 && rayDirX > 0)
-		texX = TEXWIDTH - texX - 1;
-	if (side == 1 && rayDirY < 0)
-		texX = TEXWIDTH - texX - 1;
-
-//end
-
-	draw_line(app, ray_count, wall_height, texX, find_wall_dir(app, mapY, mapX, side));
+		rc.wallX = app->player_x + rc.perpWallDist * rc.rayDirX;
+	rc.wallX -= floor((rc.wallX));
+	rc.texX = (int)(rc.wallX * (double)(TEXWIDTH));
+	if (rc.side == 0 && rc.rayDirX > 0)
+		rc.texX = TEXWIDTH - rc.texX - 1;
+	if (rc.side == 1 && rc.rayDirY < 0)
+		rc.texX = TEXWIDTH - rc.texX - 1;
+	draw_line(app, &rc, ray_count, \
+		find_wall_dir(app, rc.mapY, rc.mapX, rc.side));
 }
 
 int	raycasting(t_cub3d_info *app)
