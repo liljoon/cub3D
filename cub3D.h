@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 15:05:33 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 18:29:53 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define screenHeight 480
 # define texWidth 64
 # define texHeight 64
+# define player_move_speed 0.05
+# define player_rotate_speed 0.05
 
 typedef struct	s_cub3d_info
 {
@@ -39,6 +41,8 @@ typedef struct	s_cub3d_info
 	double	planeY;
 	double	player_x;
 	double	player_y;
+	int		player_moving[4];
+	int		player_rotating;
 	double	dirX;
 	double	dirY;
 	void	*wall_textures[4]; // 동서남북 순으로 저장
@@ -58,5 +62,11 @@ void	init_map_size(t_cub3d_info *app);
 void	read_file(t_cub3d_info *app, char ***wall_path);
 
 char	*get_next_line(int fd);
+
+int set_player_move(int keycode, t_cub3d_info *app);
+int unset_player_move(int keycode, t_cub3d_info *app);
+void check_player_move(t_cub3d_info *app);
+
+unsigned int convert_color(int rgb[]);
 
 #endif
