@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+         #
+#    By: yham <yham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:23:57 by isunwoo           #+#    #+#              #
-#    Updated: 2023/06/26 15:08:16 by isunwoo          ###   ########.fr        #
+#    Updated: 2023/06/26 16:33:14 by yham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,9 @@ SRCS	=	main.c\
 			raycasting.c\
 			init_app.c\
 			parsing.c\
+			parsing_map.c\
+			parsing_check.c\
+			parsing_utils.c\
 			$(GNL_SRC)\
 
 OBJS	=	$(SRCS:.c=.o)

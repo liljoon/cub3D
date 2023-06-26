@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 15:05:33 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 16:35:31 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,13 @@ int	raycasting(t_cub3d_info *app);
 
 void	init_map_size(t_cub3d_info *app);
 void	read_file(t_cub3d_info *app, char ***wall_path);
+
+int		check_tex_filled(t_cub3d_info *app, char ***wall_path);
+int		check_char(char *line, int len);
+void	check_elem(t_cub3d_info *app);
+
+void	init_texture(t_cub3d_info *app, char ***wall_path);
+int		cnt_split(char **split);
 
 char	*get_next_line(int fd);
 
