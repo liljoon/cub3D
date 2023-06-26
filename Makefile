@@ -23,6 +23,7 @@ SRCS	=	main.c\
 			init_app.c\
 			parsing.c\
 			parsing_map.c\
+			parsing_read.c\
 			parsing_check.c\
 			parsing_utils.c\
 			player_movement.c\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_app.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 21:16:20 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 21:30:42 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	init_info(t_cub3d_info *app)
 	app->player_y = -1;
 	app->dir_x = 0;
 	app->dir_y = 0;
+	app->map_width = 0;
+	app->map_height = 0;
 	app->map = NULL;
 	i = 0;
 	while (i < 4)
