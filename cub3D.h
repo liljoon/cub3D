@@ -25,6 +25,8 @@
 # define screenHeight 480
 # define texWidth 64
 # define texHeight 64
+# define player_move_speed 0.05
+# define player_rotate_speed 0.05
 
 typedef struct	s_cub3d_info
 {
@@ -39,6 +41,8 @@ typedef struct	s_cub3d_info
 	double	planeY;
 	double	player_x;
 	double	player_y;
+	int		player_moving[4];
+	int		player_rotating;
 	double	dirX;
 	double	dirY;
 	void	*wall_textures[4]; // 동서남북 순으로 저장
@@ -71,5 +75,11 @@ void	init_texture(t_cub3d_info *app, char ***wall_path);
 int		cnt_split(char **split);
 int		**init_visited(t_cub3d_info *app);
 void	fill_blank(t_cub3d_info *app);
+
+int set_player_move(int keycode, t_cub3d_info *app);
+int unset_player_move(int keycode, t_cub3d_info *app);
+void check_player_move(t_cub3d_info *app);
+
+unsigned int convert_color(int rgb[]);
 
 #endif

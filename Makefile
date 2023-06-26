@@ -11,8 +11,7 @@
 # **************************************************************************** #
 
 CC		= 	cc
-CFLAGS	=	-g
-#-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 NAME	=	cub3D
 
 GNL_SRC	=	gnl/get_next_line.c\
@@ -25,6 +24,8 @@ SRCS	=	main.c\
 			parsing_map.c\
 			parsing_check.c\
 			parsing_utils.c\
+			player_movement.c\
+			utils.c\
 			$(GNL_SRC)\
 
 OBJS	=	$(SRCS:.c=.o)
