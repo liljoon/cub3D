@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 20:45:20 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 21:03:50 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void			init_texture(t_cub3d_info *app, char ***wall_path);
 int				cnt_split(char **split);
 int				**init_visited(t_cub3d_info *app);
 void			fill_blank(t_cub3d_info *app);
-int				cnt_char(char *str, char c);
+void			check_colors(char *colors);
 
 int				set_player_move(int keycode, t_cub3d_info *app);
 int				unset_player_move(int keycode, t_cub3d_info *app);
@@ -87,5 +87,8 @@ void			check_player_move(t_cub3d_info *app);
 
 unsigned int	convert_color(int rgb[]);
 void			print_err(char *msg);
+
+void			free_split(char **split);
+void			free_visited(int **visited, int height);
 
 #endif

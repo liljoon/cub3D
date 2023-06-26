@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:28:07 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 19:46:26 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 20:58:10 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,5 @@ void	check_map(t_cub3d_info *app)
 		}
 		i++;
 	}
+	free_visited(visited, app->map_height);
 }

@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 20:45:01 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 21:02:01 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ void	add_color(t_cub3d_info *app, char *colors, int floor)
 {
 	char	**color;
 
+	check_colors(colors);
 	color = ft_split(colors, ',');
-	if (!(cnt_char(colors, ',') == 2 && cnt_split(color) == 3))
+	if (cnt_split(color) != 3)
 		print_err("invalid element\n");
 	if (floor == 1)
 	{
@@ -31,6 +32,7 @@ void	add_color(t_cub3d_info *app, char *colors, int floor)
 		app->ceiling[1] = ft_atoi(color[1]);
 		app->ceiling[2] = ft_atoi(color[2]);
 	}
+	free_split(color);
 }
 
 void	add_texture(t_cub3d_info *app, char *line, char ***wall_path, int *cnt)
@@ -43,18 +45,19 @@ void	add_texture(t_cub3d_info *app, char *line, char ***wall_path, int *cnt)
 	if (cnt_split(split) != 2)
 		print_err("invalid element\n");
 	if (ft_strncmp(split[0], "EA", ft_strlen(split[0])) == 0)
-		(*wall_path)[0] = split[1];
+		(*wall_path)[0] = ft_strdup(split[1]);
 	else if (ft_strncmp(split[0], "WE", ft_strlen(split[0])) == 0)
-		(*wall_path)[1] = split[1];
+		(*wall_path)[1] = ft_strdup(split[1]);
 	else if (ft_strncmp(split[0], "SO", ft_strlen(split[0])) == 0)
-		(*wall_path)[2] = split[1];
+		(*wall_path)[2] = ft_strdup(split[1]);
 	else if (ft_strncmp(split[0], "NO", ft_strlen(split[0])) == 0)
-		(*wall_path)[3] = split[1];
+		(*wall_path)[3] = ft_strdup(split[1]);
 	else if (ft_strncmp(split[0], "F", ft_strlen(split[0])) == 0)
 		add_color(app, split[1], 1);
 	else if (ft_strncmp(split[0], "C", ft_strlen(split[0])) == 0)
 		add_color(app, split[1], 0);
 	(*cnt)++;
+	free_split(split);
 }
 
 void	set_player(t_cub3d_info *app, char dir, int x, int y)
