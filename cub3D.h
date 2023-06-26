@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yham <yham@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/25 22:50:59 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 12:33:28 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,16 @@ typedef struct	s_cub3d_info
 	int		floor[3];
 	int		ceiling[3];
 
-	int		map[10][10]; // 하드코딩
+	int		map_width;
+	int		map_height;
+	int		**map;
 } t_cub3d_info;
 
 int	init_app(t_cub3d_info *app);
 int	raycasting(t_cub3d_info *app);
 
-void	parse_file(t_cub3d_info *app);
+void	init_map_size(t_cub3d_info *app);
+void	read_file(t_cub3d_info *app, char ***wall_path);
 
 char	*get_next_line(int fd);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_app.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yham <yham@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/25 19:50:03 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 12:32:12 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,28 +76,23 @@ void init_info(t_cub3d_info *app)
 	app->screen_heigth = 480;
 	app->planeX = 0;
 	app->planeY = 0.66;
-	app->player_x = 2;
-	app->player_y = 2;
-	app->dirX = 1;
+	app->player_x = -1;
+	app->player_y = -1;
+	app->dirX = 0;
 	app->dirY = 0;
+	app->map = NULL;
 
-	int map[10][10] = {
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 1, 1, 0, 1, 0, 0, 1},
-		{1, 0, 0, 1, 0, 0, 1, 0, 0, 1},
-		{1, 0, 0, 1, 0, 0, 1, 0, 0, 1},
-		{1, 0, 0, 1, 0, 1, 1, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
-	for(int i=0;i<10;i++)
-	{
-		for(int j=0;j<10;j++)
-			app->map[i][j] = map[i][j];
-	}
-	// 하드코딩 끝
+	init_map_size(app);
+
+	char **wall_path;
+	wall_path = malloc(sizeof(char *) * 4);
+	if (!wall_path)
+		exit(1);
+	read_file(app, &wall_path);
+
+	int a,b;
+	for(int i=0; i < 4; i++)
+		app->wall_textures[i] = mlx_xpm_file_to_image(app->pmlx, wall_path[i], &a, &b);
 
 	app->pmlx = mlx_init();
 	app->pmlx_win = mlx_new_window(app->pmlx, app->screen_width, app->screen_heigth, "cub3D");
