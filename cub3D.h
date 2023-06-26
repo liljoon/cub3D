@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yham <yham@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 12:33:28 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 15:05:33 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,16 @@
 # include <fcntl.h>
 # include "./libft/libft.h"
 # include "./gnl/gnl.h"
+# define screenWidth 640
+# define screenHeight 480
+# define texWidth 64
+# define texHeight 64
 
 typedef struct	s_cub3d_info
 {
 	char	*filename;
+	unsigned int floor_color;
+	unsigned int ceiling_color;
 	void	*pmlx;
 	void	*pmlx_win;
 	int		screen_width;
@@ -38,6 +44,7 @@ typedef struct	s_cub3d_info
 	void	*wall_textures[4]; // 동서남북 순으로 저장
 	int		floor[3];
 	int		ceiling[3];
+	void	*buffer_img;
 
 	int		map_width;
 	int		map_height;

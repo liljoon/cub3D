@@ -6,23 +6,81 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:38:53 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/05/25 17:00:41 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 15:20:31 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	draw_line(t_cub3d_info *app, int screen_x, double wall_height)
+int find_wall_dir(t_cub3d_info *app, int mapY, int mapX, int side)
+{
+	if (mapX > app->player_x && mapY <= app->player_y) // 북동
+	{
+		if (side == 1) // 북
+			return 3;
+		else // 동
+			return 0;
+	}
+	else if (mapX <= app->player_x && mapY < app->player_y) // 북서
+	{
+		if (side == 1) // 북
+			return 3;
+		else // 서
+			return 1;
+	}
+	else if (mapX > app->player_x && mapY > app->player_y) // 남동
+	{
+		if (side == 1) // 남
+			return 2;
+		else // 동
+			return 0;
+	}
+	else if (mapX <= app->player_x && mapY > app->player_y) // 남서
+	{
+		if (side == 1) // 남
+			return 2;
+		else // 서
+			return 1;
+	}
+	return 1;
+}
+
+unsigned int get_color(t_cub3d_info *app, double lineHeight, int y_ratio_lineHeight, int texX, int wall_dir)
+{
+	int texY =  y_ratio_lineHeight / lineHeight * texHeight;
+
+	int t;
+	unsigned int *k = (unsigned int *)mlx_get_data_addr(app->wall_textures[wall_dir], &t, &t, &t);
+
+	return (k[texY * texWidth + texX]);
+}
+
+void put_pixel_img(t_cub3d_info *app, int x, int y, unsigned int color)
+{
+	int t;
+	unsigned int *img_addr = (unsigned int *)mlx_get_data_addr(app->buffer_img, &t, &t, &t);
+
+	img_addr[app->screen_width * y + x] = color;
+}
+
+void draw_line(t_cub3d_info *app, int screen_x, double wall_height, int texX, int wall_dir)
 {
 	int	y;
+	int draw_start;
+	int draw_end;
+
+	draw_start = app->screen_heigth / 2 - wall_height / 2;
+	draw_end = app->screen_heigth / 2 + wall_height / 2;
 
 	y = 0;
 	while (y < app->screen_heigth)
 	{
-		if (y >= app->screen_heigth / 2 - wall_height / 2 && y < app->screen_heigth / 2 + wall_height / 2)
-			mlx_pixel_put(app->pmlx, app->pmlx_win, screen_x, y, 0xFF0000);
-		else
-			mlx_pixel_put(app->pmlx, app->pmlx_win, screen_x, y, 0x000000);
+		if (y >= draw_start && y < draw_end)
+			put_pixel_img(app, screen_x, y, get_color(app, wall_height, y - draw_start, texX, wall_dir));
+		else if (y < app->screen_heigth / 2)
+			put_pixel_img(app, screen_x, y, app->ceiling_color);
+		else if (y >= app->screen_heigth / 2)
+			put_pixel_img(app, screen_x, y, app->floor_color);
 		y++;
 	}
 }
@@ -93,7 +151,25 @@ void ray_check(t_cub3d_info *app, int ray_count)
 		perpWallDist = (sideDistY - deltaDistY);
 
 	int wall_height = (int)((app->screen_heigth / 2) / perpWallDist);
-	draw_line(app, ray_count, wall_height);
+
+//texture
+	double wallX; // where exactly the wall was hit
+	if (side == 0)
+		wallX = app->player_y + perpWallDist * rayDirY;
+	else
+		wallX = app->player_x + perpWallDist * rayDirX;
+	wallX -= floor((wallX));
+
+	// x coordinate on the texture
+	int texX = (int)(wallX * (double)(texWidth));
+	if (side == 0 && rayDirX > 0)
+		texX = texWidth - texX - 1;
+	if (side == 1 && rayDirY < 0)
+		texX = texWidth - texX - 1;
+
+//end
+
+	draw_line(app, ray_count, wall_height, texX, find_wall_dir(app, mapY, mapX, side));
 }
 
 int raycasting(t_cub3d_info *app)
@@ -107,5 +183,6 @@ int raycasting(t_cub3d_info *app)
 		ray_check(app, ray_count);
 		ray_count++;
 	}
+	mlx_put_image_to_window(app->pmlx, app->pmlx_win, app->buffer_img, 0, 0);
 	return (0);
 }
