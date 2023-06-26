@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:31:58 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 18:58:37 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 19:16:00 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ int	**init_visited(t_cub3d_info *app)
 
 	visited = malloc(sizeof(int *) * app->map_height);
 	if (!visited)
-		exit(1);
+		print_err("malloc error\n");
 	i = 0;
 	while (i < app->map_height)
 	{
 		visited[i] = malloc(sizeof(int) * app->map_width);
 		if (!visited[i])
-			exit(1);
+			print_err("malloc error\n");
 		i++;
 	}
 	return (visited);
