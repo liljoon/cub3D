@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yham <yham@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:43:49 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 12:33:41 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 19:15:21 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	check_file(char *filename)
 		&& filename[file_len - 3] == 'c' \
 		&& filename[file_len - 2] == 'u' \
 		&& filename[file_len - 1] == 'b'))
-		exit(1);
+		print_err("invalid file\n");
 }
 
 int main(int argc, char *argv[])
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 	t_cub3d_info	app;
 
 	if (argc != 2)
-		exit(1);
+		print_err("invalid argument\n");
 	app.filename = argv[1];
 	check_file(app.filename);
 	if (init_app(&app))

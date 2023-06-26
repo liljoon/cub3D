@@ -6,16 +6,18 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:28:07 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 18:58:04 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 19:31:19 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	check_tex_filled(t_cub3d_info *app, char ***wall_path)
+int	check_tex_filled(t_cub3d_info *app, char ***wall_path, int elem_cnt)
 {
 	int	i;
 
+	if (elem_cnt > 6)
+		print_err("invalid element\n");
 	i = 0;
 	while (i < 4)
 	{
@@ -45,11 +47,11 @@ int	check_char(char *line, int len)
 	return (1);
 }
 
-void	check_elem(t_cub3d_info *app)
+void	check_map_info(t_cub3d_info *app)
 {
 	if ((!app->map || app->player_x == -1 || app->player_y == -1) \
 		|| (app->dirX == 0 && app->dirY == 0))
-		exit(1);
+		print_err("invalid map\n");
 }
 
 int	check_wall(int x, int y, t_cub3d_info *app)
@@ -57,7 +59,7 @@ int	check_wall(int x, int y, t_cub3d_info *app)
 	if (!(x >= 0 && x < app->map_width \
 		&& y >= 0 && y < app->map_height)
 		|| app->map[y][x] == -1)
-		exit(1);	// 뚫려있는 맵이라고 판단
+		print_err("invalid map\n");
 	if (app->map[y][x] == 1)
 		return (1);
 	return (0);
