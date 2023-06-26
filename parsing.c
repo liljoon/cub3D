@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 16:10:47 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 16:20:17 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,6 @@ void	set_player(t_cub3d_info *app, char dir, int x, int y)
 	}
 	app->player_x = x;
 	app->player_y = y;
-	printf("%d %d\n",x, y);
 }
 
 void	fill_map(t_cub3d_info *app, char *line, int i)
