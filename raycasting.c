@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:38:53 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 18:52:27 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 19:43:55 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ unsigned int	get_color(t_cub3d_info *app, double lineHeight, \
 	int				t;
 	unsigned int	*k;
 
-	tex_y = y_ratio_lineHeight / lineHeight * texHeight;
+	tex_y = y_ratio_lineHeight / lineHeight * TEXHEIGHT;
 	k = (unsigned int *)mlx_get_data_addr(app->wall_textures[wall_dir], \
 		&t, &t, &t);
-	return (k[tex_y * texWidth + texX]);
+	return (k[tex_y * TEXWIDTH + texX]);
 }
 
 void	put_pixel_img(t_cub3d_info *app, int x, int y, unsigned int color)
@@ -161,11 +161,11 @@ void	ray_check(t_cub3d_info *app, int ray_count)
 	wallX -= floor((wallX));
 
 	// x coordinate on the texture
-	int texX = (int)(wallX * (double)(texWidth));
+	int texX = (int)(wallX * (double)(TEXWIDTH));
 	if (side == 0 && rayDirX > 0)
-		texX = texWidth - texX - 1;
+		texX = TEXWIDTH - texX - 1;
 	if (side == 1 && rayDirY < 0)
-		texX = texWidth - texX - 1;
+		texX = TEXWIDTH - texX - 1;
 
 //end
 

@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:32:58 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 18:54:13 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 19:37:17 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	player_rotate(t_cub3d_info *app)
 	double	old_dir_x;
 	double	old_plane_x;
 
-	rot_speed = player_rotate_speed * app->player_rotating;
+	rot_speed = PLAYER_ROTATE_SPEED * app->player_rotating;
 	old_dir_x = app->dirX;
 	app->dirX = app->dirX * cos(rot_speed) - app->dirY * sin(rot_speed);
 	app->dirY = old_dir_x * sin(rot_speed) + app->dirY * cos(rot_speed);
@@ -79,23 +79,23 @@ void	check_player_move(t_cub3d_info *app)
 	old_y = app->player_y;
 	if (app->player_moving[0])
 	{
-		app->player_x += app->dirY * player_move_speed;
-		app->player_y -= app->dirX * player_move_speed;
+		app->player_x += app->dirY * PLAYER_MOVE_SPEED;
+		app->player_y -= app->dirX * PLAYER_MOVE_SPEED;
 	}
 	if (app->player_moving[1])
 	{
-		app->player_x -= app->dirX * player_move_speed;
-		app->player_y -= app->dirY * player_move_speed;
+		app->player_x -= app->dirX * PLAYER_MOVE_SPEED;
+		app->player_y -= app->dirY * PLAYER_MOVE_SPEED;
 	}
 	if (app->player_moving[2])
 	{
-		app->player_x -= app->dirY * player_move_speed;
-		app->player_y += app->dirX * player_move_speed;
+		app->player_x -= app->dirY * PLAYER_MOVE_SPEED;
+		app->player_y += app->dirX * PLAYER_MOVE_SPEED;
 	}
 	if (app->player_moving[3])
 	{
-		app->player_x += app->dirX * player_move_speed;
-		app->player_y += app->dirY * player_move_speed;
+		app->player_x += app->dirX * PLAYER_MOVE_SPEED;
+		app->player_y += app->dirY * PLAYER_MOVE_SPEED;
 	}
 	if (check_wall_collision(app->map, app->player_x, app->player_y))
 	{
