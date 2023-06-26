@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 19:55:40 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 20:27:11 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	init_info(t_cub3d_info *app)
 	while (i < 4)
 	{
 		app->wall_textures[i] = mlx_xpm_file_to_image(app->pmlx, wall_path[i], &a, &b);
+		if (app->wall_textures[i] == NULL)
+			print_err("invalid texture file\n");
 		i++;
 	}
 }
