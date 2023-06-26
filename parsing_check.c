@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:28:07 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 19:31:19 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 19:46:26 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ int	check_tex_filled(t_cub3d_info *app, char ***wall_path, int elem_cnt)
 			return (0);
 		i++;
 	}
+	if (app->floor[0] == app->ceiling[0] \
+		&& app->floor[1] == app->ceiling[1] \
+		&& app->floor[2] == app->ceiling[2])
+		print_err("invalid element\n");
 	return (1);
 }
 
