@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:26:32 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 19:14:04 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 20:25:09 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ unsigned int	convert_color(int rgb[])
 
 void	print_err(char *msg)
 {
-	write(1, "Error\n", 6);
-	write(1, msg, ft_strlen(msg));
+	write(2, "Error\n", 6);
+	write(2, msg, ft_strlen(msg));
 	exit(1);
 }

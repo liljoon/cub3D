@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 19:55:52 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 20:33:05 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,25 +125,27 @@ void	read_file(t_cub3d_info *app, char ***wall_path)
 	if (fd < 0)
 		print_err("invalid file\n");
 	line = get_next_line(fd);
-	i = 0;
 	elem_cnt = 0;
 	while (line)
 	{
-		if (line[0] == '\n')
-		{
-			line = get_next_line(fd);
-			continue ;
-		}
 		line = ft_strtrim(line, "\n");
-		if (check_tex_filled(app, wall_path, elem_cnt))
-		{
-			if (!check_char(line, ft_strlen(line)))
-				print_err("invalid map\n");
-			fill_map(app, line, i);
-			i++;
-		}
-		else
-			add_texture(app, line, wall_path, &elem_cnt);
+		if (check_tex_filled(app, wall_path, elem_cnt) && ft_strlen(line) != 0)
+			break ;
+		add_texture(app, line, wall_path, &elem_cnt);
+		printf("line1:%s\n", line);
+		line = get_next_line(fd);
+	}
+	i = 0;
+	while (line)
+	{
+		line = ft_strtrim(line, "\n");
+		if (ft_strlen(line) == 0)
+			print_err("invalid map\n");
+		if (!check_char(line, ft_strlen(line)))
+			print_err("invalid map\n");
+		fill_map(app, line, i);
+		i++;
+		printf("line2:%s\n", line);
 		line = get_next_line(fd);
 	}
 	close(fd);
