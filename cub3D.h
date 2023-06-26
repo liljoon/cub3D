@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 16:35:31 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 19:00:44 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,22 @@ typedef struct	s_cub3d_info
 int	init_app(t_cub3d_info *app);
 int	raycasting(t_cub3d_info *app);
 
-void	init_map_size(t_cub3d_info *app);
+char	*get_next_line(int fd);
+
 void	read_file(t_cub3d_info *app, char ***wall_path);
+
+void	init_map_size(t_cub3d_info *app);
+void	dfs_map(int curr_x, int curr_y, int **visited, t_cub3d_info *app);
 
 int		check_tex_filled(t_cub3d_info *app, char ***wall_path);
 int		check_char(char *line, int len);
 void	check_elem(t_cub3d_info *app);
+int		check_wall(int x, int y, t_cub3d_info *app);
+void	check_map(t_cub3d_info *app);
 
 void	init_texture(t_cub3d_info *app, char ***wall_path);
 int		cnt_split(char **split);
-
-char	*get_next_line(int fd);
+int		**init_visited(t_cub3d_info *app);
+void	fill_blank(t_cub3d_info *app);
 
 #endif

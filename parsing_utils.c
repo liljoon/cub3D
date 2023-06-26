@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:31:58 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 16:32:26 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 18:58:37 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,42 @@ int	cnt_split(char **split)
 	while (split[i])
 		i++;
 	return (i);
+}
+
+int	**init_visited(t_cub3d_info *app)
+{
+	int	i;
+	int	**visited;
+
+	visited = malloc(sizeof(int *) * app->map_height);
+	if (!visited)
+		exit(1);
+	i = 0;
+	while (i < app->map_height)
+	{
+		visited[i] = malloc(sizeof(int) * app->map_width);
+		if (!visited[i])
+			exit(1);
+		i++;
+	}
+	return (visited);
+}
+
+void	fill_blank(t_cub3d_info *app)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < app->map_height)
+	{
+		j = 0;
+		while (j < app->map_width)
+		{
+			if (app->map[i][j] == -1)
+				app->map[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
 }

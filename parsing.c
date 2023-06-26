@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 16:31:47 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 18:58:26 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	fill_map(t_cub3d_info *app, char *line, int i)
 	while (j < len)
 	{
 		if (line[j] == ' ')
-			app->map[i][j] = 0;
+			app->map[i][j] = -1;
 		else if (line[j] == '0' || line[j] == '1')
 			app->map[i][j] = line[j] - '0';
 		else if (line[j] == 'E' || line[j] == 'W' \
@@ -107,7 +107,7 @@ void	fill_map(t_cub3d_info *app, char *line, int i)
 	}
 	while (j < app->map_width)
 	{
-		app->map[i][j] = 0;
+		app->map[i][j] = -1;
 		j++;
 	}
 }
@@ -145,4 +145,6 @@ void	read_file(t_cub3d_info *app, char ***wall_path)
 	}
 	close(fd);
 	check_elem(app);
+	check_map(app);
+	fill_blank(app);
 }
