@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:38:53 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 19:43:55 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 19:48:04 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	find_wall_dir(t_cub3d_info *app, int mapY, int mapX, int side)
 			return (3);
 		return (0);
 	}
-	else if (mapX <= app->player_x && mapY < app->player_y)
+	else if (mapX <= app->player_x && mapY <= app->player_y)
 	{
 		if (side == 1)
 			return (3);
