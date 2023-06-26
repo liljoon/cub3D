@@ -6,7 +6,7 @@
 #    By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:23:57 by isunwoo           #+#    #+#              #
-#    Updated: 2023/06/26 15:08:16 by isunwoo          ###   ########.fr        #
+#    Updated: 2023/06/26 16:35:22 by isunwoo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	=	main.c\
 			raycasting.c\
 			init_app.c\
 			parsing.c\
+			player_movement.c\
 			$(GNL_SRC)\
 
 OBJS	=	$(SRCS:.c=.o)

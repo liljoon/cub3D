@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:38:53 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 15:20:31 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 17:58:55 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ int raycasting(t_cub3d_info *app)
 	double	ray_angle;
 	int		ray_count;
 
+	check_player_move(app);
 	ray_count = 0;
 	while (ray_count < app->screen_width)
 	{
