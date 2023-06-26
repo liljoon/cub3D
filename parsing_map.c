@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:29:18 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 19:15:39 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 21:41:44 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,15 @@ void	init_map_size(t_cub3d_info *app)
 	char	*line;
 
 	fd = open(app->filename, O_RDONLY);
-	app->map_width = 0;
-	app->map_height = 0;
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (line[0] == '\n')
+		line = ft_strtrim(line, "\n");
+		if (ft_strlen(line) == 0)
 		{
 			line = get_next_line(fd);
 			continue ;
 		}
-		line = ft_strtrim(line, "\n");
 		line_len = ft_strlen(line);
 		if (check_char(line, line_len))
 		{
