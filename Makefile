@@ -6,7 +6,7 @@
 #    By: yham <yham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:23:57 by isunwoo           #+#    #+#              #
-#    Updated: 2023/06/26 20:54:41 by yham             ###   ########.fr        #
+#    Updated: 2023/06/26 22:05:33 by yham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	=	main.c\
 			init_app.c\
 			parsing.c\
 			parsing_map.c\
+			parsing_read.c\
 			parsing_check.c\
 			parsing_utils.c\
 			player_movement.c\

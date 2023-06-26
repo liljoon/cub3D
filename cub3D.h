@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 21:18:45 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 22:11:28 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,18 @@ int				raycasting(t_cub3d_info *app);
 
 char			*get_next_line(int fd);
 
-void			read_file(t_cub3d_info *app, char ***wall_path);
+void			add_texture(t_cub3d_info *app, char *line, \
+							char ***wall_path, int *cnt);
+void			fill_map(t_cub3d_info *app, char *line, int i);
+
 void			init_map_size(t_cub3d_info *app);
 void			dfs_map(int curr_x, int curr_y, int **visited, \
-	t_cub3d_info *app);
+						t_cub3d_info *app);
 
-int				check_tex_filled(\
-	t_cub3d_info *app, char ***wall_path, int elem_cnt);
+void			read_file(t_cub3d_info *app, char ***wall_path);
+
+int				check_tex_filled(t_cub3d_info *app, \
+								char ***wall_path, int elem_cnt);
 int				check_char(char *line, int len);
 void			check_map_info(t_cub3d_info *app);
 int				check_wall(int x, int y, t_cub3d_info *app);

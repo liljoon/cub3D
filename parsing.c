@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 21:19:12 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 22:30:48 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,22 @@ void	set_player(t_cub3d_info *app, char dir, int x, int y)
 	if (dir == 'E')
 	{
 		app->dir_x = 1;
-		app->plane_x = 0;
 		app->plane_y = 0.66;
 	}
 	else if (dir == 'W')
 	{
 		app->dir_x = -1;
-		app->plane_x = 0;
 		app->plane_y = -0.66;
 	}
 	else if (dir == 'S')
 	{
 		app->dir_y = 1;
 		app->plane_x = -0.66;
-		app->plane_y = 0;
 	}
 	else if (dir == 'N')
 	{
 		app->dir_y = -1;
 		app->plane_x = 0.66;
-		app->plane_y = 0;
 	}
 	app->player_x = x + 0.5;
 	app->player_y = y + 0.5;
@@ -93,11 +89,9 @@ void	set_player(t_cub3d_info *app, char dir, int x, int y)
 void	fill_map(t_cub3d_info *app, char *line, int i)
 {
 	int	j;
-	int	len;
 
 	j = 0;
-	len = ft_strlen(line);
-	while (j < len)
+	while (j < (int)ft_strlen(line))
 	{
 		if (line[j] == ' ')
 			app->map[i][j] = -1;
@@ -107,6 +101,8 @@ void	fill_map(t_cub3d_info *app, char *line, int i)
 				|| line[j] == 'S' || line[j] == 'N')
 		{
 			app->map[i][j] = 0;
+			if (app->player_x != -1 || app->player_y != -1)
+				print_err("invalid map\n");
 			set_player(app, line[j], j, i);
 		}
 		j++;
@@ -116,43 +112,4 @@ void	fill_map(t_cub3d_info *app, char *line, int i)
 		app->map[i][j] = -1;
 		j++;
 	}
-}
-
-void	read_file(t_cub3d_info *app, char ***wall_path)
-{
-	int		i;
-	int		fd;
-	int		elem_cnt;
-	char	*line;
-
-	init_texture(app, wall_path);
-	fd = open(app->filename, O_RDONLY);
-	if (fd < 0)
-		print_err("invalid file\n");
-	line = get_next_line(fd);
-	elem_cnt = 0;
-	while (line)
-	{
-		line = ft_strtrim(line, "\n");
-		if (check_tex_filled(app, wall_path, elem_cnt) && ft_strlen(line) != 0)
-			break ;
-		add_texture(app, line, wall_path, &elem_cnt);
-		line = get_next_line(fd);
-	}
-	i = 0;
-	while (line)
-	{
-		line = ft_strtrim(line, "\n");
-		if (ft_strlen(line) == 0)
-			print_err("invalid map\n");
-		if (!check_char(line, ft_strlen(line)))
-			print_err("invalid map\n");
-		fill_map(app, line, i);
-		i++;
-		line = get_next_line(fd);
-	}
-	close(fd);
-	check_map_info(app);
-	check_map(app);
-	fill_blank(app);
 }

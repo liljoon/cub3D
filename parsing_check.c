@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:28:07 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 21:18:59 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 22:25:31 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,14 @@ int	check_tex_filled(t_cub3d_info *app, char ***wall_path, int elem_cnt)
 			return (0);
 		i++;
 	}
-	if (app->floor[0] == app->ceiling[0] \
-		&& app->floor[1] == app->ceiling[1] \
-		&& app->floor[2] == app->ceiling[2])
-		print_err("invalid element\n");
+	i = 0;
+	while (i < 3)
+	{
+		if (!(app->floor[i] >= 0 && app->floor[i] < 256)
+			|| !(app->ceiling[i] >= 0 && app->ceiling[i] < 256))
+			print_err("invalid element\n");
+		i++;
+	}
 	return (1);
 }
 
