@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 20:00:22 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 20:45:20 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void			init_texture(t_cub3d_info *app, char ***wall_path);
 int				cnt_split(char **split);
 int				**init_visited(t_cub3d_info *app);
 void			fill_blank(t_cub3d_info *app);
+int				cnt_char(char *str, char c);
 
 int				set_player_move(int keycode, t_cub3d_info *app);
 int				unset_player_move(int keycode, t_cub3d_info *app);

@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 20:33:05 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 20:45:01 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	add_color(t_cub3d_info *app, char *colors, int floor)
 	char	**color;
 
 	color = ft_split(colors, ',');
+	if (!(cnt_char(colors, ',') == 2 && cnt_split(color) == 3))
+		print_err("invalid element\n");
 	if (floor == 1)
 	{
 		app->floor[0] = ft_atoi(color[0]);
@@ -40,17 +42,17 @@ void	add_texture(t_cub3d_info *app, char *line, char ***wall_path, int *cnt)
 		return ;
 	if (cnt_split(split) != 2)
 		print_err("invalid element\n");
-	if (ft_strncmp(split[0], "EA", 2) == 0)
+	if (ft_strncmp(split[0], "EA", ft_strlen(split[0])) == 0)
 		(*wall_path)[0] = split[1];
-	else if (ft_strncmp(split[0], "WE", 2) == 0)
+	else if (ft_strncmp(split[0], "WE", ft_strlen(split[0])) == 0)
 		(*wall_path)[1] = split[1];
-	else if (ft_strncmp(split[0], "SO", 2) == 0)
+	else if (ft_strncmp(split[0], "SO", ft_strlen(split[0])) == 0)
 		(*wall_path)[2] = split[1];
-	else if (ft_strncmp(split[0], "NO", 2) == 0)
+	else if (ft_strncmp(split[0], "NO", ft_strlen(split[0])) == 0)
 		(*wall_path)[3] = split[1];
-	else if (ft_strncmp(split[0], "F", 1) == 0)
+	else if (ft_strncmp(split[0], "F", ft_strlen(split[0])) == 0)
 		add_color(app, split[1], 1);
-	else if (ft_strncmp(split[0], "C", 1) == 0)
+	else if (ft_strncmp(split[0], "C", ft_strlen(split[0])) == 0)
 		add_color(app, split[1], 0);
 	(*cnt)++;
 }
@@ -132,7 +134,6 @@ void	read_file(t_cub3d_info *app, char ***wall_path)
 		if (check_tex_filled(app, wall_path, elem_cnt) && ft_strlen(line) != 0)
 			break ;
 		add_texture(app, line, wall_path, &elem_cnt);
-		printf("line1:%s\n", line);
 		line = get_next_line(fd);
 	}
 	i = 0;
@@ -145,7 +146,6 @@ void	read_file(t_cub3d_info *app, char ***wall_path)
 			print_err("invalid map\n");
 		fill_map(app, line, i);
 		i++;
-		printf("line2:%s\n", line);
 		line = get_next_line(fd);
 	}
 	close(fd);

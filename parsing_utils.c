@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:31:58 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 19:16:00 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 20:46:11 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,22 @@ void	fill_blank(t_cub3d_info *app)
 		}
 		i++;
 	}
+}
+
+int	cnt_char(char *str, char c)
+{
+	int	i;
+	int	cnt;
+	int	len;
+
+	i = 0;
+	cnt = 0;
+	len = ft_strlen(str);
+	while (i < len)
+	{
+		if (str[i] == c)
+			cnt++;
+		i++;
+	}
+	return (cnt);
 }
