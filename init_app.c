@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_app.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 19:14:16 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/26 19:55:40 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	init_info(t_cub3d_info *app)
 	int		i;
 	char	**wall_path;
 
-	app->screen_width = screenWidth;
-	app->screen_heigth = screenHeight;
+	app->screen_width = SCREENWIDTH;
+	app->screen_heigth = SCREENHEIGHT;
 	app->planeX = 0;
 	app->planeY = 0;
 	app->player_x = -1;
