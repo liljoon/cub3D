@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:38:53 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/25 22:26:39 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 14:33:38 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,17 @@ unsigned int get_color(t_cub3d_info *app, double lineHeight, int y_ratio_lineHei
 	int texY =  y_ratio_lineHeight / lineHeight * texHeight;
 
 	int t;
-	char *temp = mlx_get_data_addr(app->wall_textures[wall_dir], &t, &t, &t);
-	unsigned int *k = temp;
+	unsigned int *k = (unsigned int *)mlx_get_data_addr(app->wall_textures[wall_dir], &t, &t, &t);
 
 	return (k[texY * texWidth + texX]);
+}
+
+void put_pixel_img(t_cub3d_info *app, int x, int y, unsigned int color)
+{
+	int t;
+	unsigned int *img_addr = (unsigned int *)mlx_get_data_addr(app->buffer_img, &t, &t, &t);
+
+	img_addr[app->screen_width * y + x] = color;
 }
 
 void draw_line(t_cub3d_info *app, int screen_x, double wall_height, int texX, int wall_dir)
@@ -69,11 +76,11 @@ void draw_line(t_cub3d_info *app, int screen_x, double wall_height, int texX, in
 	while (y < app->screen_heigth)
 	{
 		if (y >= draw_start && y < draw_end)
-			mlx_pixel_put(app->pmlx, app->pmlx_win, screen_x, y, get_color(app, wall_height, y - draw_start, texX, wall_dir));
+			put_pixel_img(app, screen_x, y, get_color(app, wall_height, y - draw_start, texX, wall_dir));
 		else if (y < app->screen_heigth / 2)
-			mlx_pixel_put(app->pmlx, app->pmlx_win, screen_x, y, app->ceiling);
+			put_pixel_img(app, screen_x, y, app->ceiling);
 		else if (y >= app->screen_heigth / 2)
-			mlx_pixel_put(app->pmlx, app->pmlx_win, screen_x, y, app->floor);
+			put_pixel_img(app, screen_x, y, app->floor);
 		y++;
 	}
 }
@@ -176,5 +183,6 @@ int raycasting(t_cub3d_info *app)
 		ray_check(app, ray_count);
 		ray_count++;
 	}
+	mlx_put_image_to_window(app->pmlx, app->pmlx_win, app->buffer_img, 0, 0);
 	return (0);
 }

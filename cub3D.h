@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/25 22:23:23 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 14:25:54 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct	s_cub3d_info
 	double	dirX;
 	double	dirY;
 	void	*wall_textures[4]; // 동서남북 순으로 저장
-
+	void	*buffer_img;
 
 	int		map[10][10]; // 하드코딩
 } t_cub3d_info;

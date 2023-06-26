@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_app.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 01:56:07 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 14:42:26 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void init_info(t_cub3d_info *app)
 
 	app->pmlx = mlx_init();
 	app->pmlx_win = mlx_new_window(app->pmlx, app->screen_width, app->screen_heigth, "cub3D");
+	app->buffer_img = mlx_new_image(app->pmlx, app->screen_width, app->screen_heigth);
 
 	int a, b;
 	for (int i = 0; i < 4; i++)
