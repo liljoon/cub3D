@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 16:00:55 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 16:10:47 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,19 +195,27 @@ void	set_player(t_cub3d_info *app, char dir, int x, int y)
 void	fill_map(t_cub3d_info *app, char *line, int i)
 {
 	int	j;
+	int	len;
 
 	j = 0;
-	while (j < ft_strlen(j))
+	len = ft_strlen(line);
+	while (j < len)
 	{
 		if (line[j] == ' ')
 			app->map[i][j] = 0;
 		else if (line[j] == '0' || line[j] == '1')
 			app->map[i][j] = line[j] - '0';
-		else
+		else if (line[j] == 'E' || line[j] == 'W' \
+				|| line[j] == 'S' || line[j] == 'N')
 		{
 			app->map[i][j] = 0;
 			set_player(app, line[j], j, i);
 		}
+		j++;
+	}
+	while (j < app->map_width)
+	{
+		app->map[i][j] = 0;
 		j++;
 	}
 }
