@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 18:06:58 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/26 18:09:43 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define screenHeight 480
 # define texWidth 64
 # define texHeight 64
-# define player_move_speed 0.1
+# define player_move_speed 0.05
 # define player_rotate_speed 0.05
 
 typedef struct	s_cub3d_info
