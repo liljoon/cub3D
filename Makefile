@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+         #
+#    By: yham <yham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:23:57 by isunwoo           #+#    #+#              #
-#    Updated: 2023/06/26 22:57:06 by isunwoo          ###   ########.fr        #
+#    Updated: 2023/06/27 17:02:02 by yham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ LDFLAGS += $(MLX_L)
 
 $(NAME) : $(OBJS)
 	make -C ./libft
-	$(CC) $(OBJS) -o $@ $(LDFLAGS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS)
 
 .SUFFIXES : .c .o
 .c.o : $(INCS) $(SRCS)
