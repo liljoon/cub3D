@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/27 16:04:58 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/27 16:34:20 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void			player_rotate(t_cub3d_info *app);
 unsigned int	convert_color(int rgb[]);
 void			print_err(char *msg);
 char			*cub_strtrim(char *s1, char *set);
+char			*free_and_gnl(char *line, int fd);
 
 void			free_split(char **split);
 void			free_visited(int **visited, int height);

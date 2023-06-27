@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:26:32 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/27 16:21:09 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/27 16:38:37 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,7 @@ char	*cub_strtrim(char *s1, char *set)
 		start++;
 	end = ft_strlen(s1) - 1;
 	while (end >= 0 && ft_strchr(set, s1[end]))
-	{
-		if (end == 0)
-			break ;
 		end--;
-	}
 	if (start > end)
 	{
 		free(s1);
@@ -58,4 +54,10 @@ char	*cub_strtrim(char *s1, char *set)
 	res = ft_substr(s1, start, end - start + 1);
 	free(s1);
 	return (res);
+}
+
+char	*free_and_gnl(char *line, int fd)
+{
+	free(line);
+	return (get_next_line(fd));
 }
