@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:29:18 by yham              #+#    #+#             */
-/*   Updated: 2023/06/27 16:14:29 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/27 16:34:52 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ void	init_map_size(t_cub3d_info *app)
 		line = cub_strtrim(line, "\n");
 		if (ft_strlen(line) == 0)
 		{
-			free(line);
-			line = get_next_line(fd);
+			line = free_and_gnl(line, fd);
 			continue ;
 		}
 		line_len = ft_strlen(line);
@@ -53,8 +52,7 @@ void	init_map_size(t_cub3d_info *app)
 				app->map_width = line_len;
 			app->map_height++;
 		}
-		free(line);
-		line = get_next_line(fd);
+		line = free_and_gnl(line, fd);
 	}
 	free(line);
 	init_map(app);

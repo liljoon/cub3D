@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 22:04:22 by yham              #+#    #+#             */
-/*   Updated: 2023/06/27 16:19:17 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/27 16:35:26 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char	*read_element(t_cub3d_info *app, char ***wall_path, int fd)
 	int		elem_cnt;
 	char	*line;
 
-	line = get_next_line(fd);
 	elem_cnt = 0;
+	line = get_next_line(fd);
 	while (line)
 	{
 		line = cub_strtrim(line, "\n");
@@ -26,13 +26,11 @@ char	*read_element(t_cub3d_info *app, char ***wall_path, int fd)
 			break ;
 		if (ft_strlen(line) == 0)
 		{
-			free(line);
-			line = get_next_line(fd);
+			line = free_and_gnl(line, fd);
 			continue ;
 		}
 		add_texture(app, line, wall_path, &elem_cnt);
-		free(line);
-		line = get_next_line(fd);
+		line = free_and_gnl(line, fd);
 	}
 	return (line);
 }
@@ -52,8 +50,7 @@ void	read_map(t_cub3d_info *app, char *first_line, int fd)
 		if (!check_char(line, ft_strlen(line)))
 			print_err("invalid map\n");
 		fill_map(app, line, i++);
-		free(line);
-		line = get_next_line(fd);
+		line = free_and_gnl(line, fd);
 	}
 	free(line);
 }
