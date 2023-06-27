@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 22:53:37 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 23:00:13 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/27 00:53:57 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	find_wall_dir(t_cub3d_info *app, int mapY, int mapX, int side)
+int	find_wall_dir(t_cub3d_info *app, int map_y, int map_x, int side)
 {
-	if (mapX > app->player_x && mapY <= app->player_y)
+	if (map_x > app->player_x && map_y <= app->player_y)
 	{
 		if (side == 1)
 			return (3);
 		return (0);
 	}
-	else if (mapX <= app->player_x && mapY <= app->player_y)
+	else if (map_x <= app->player_x && map_y <= app->player_y)
 	{
 		if (side == 1)
 			return (3);
 		return (1);
 	}
-	else if (mapX > app->player_x && mapY > app->player_y)
+	else if (map_x > app->player_x && map_y > app->player_y)
 	{
 		if (side == 1)
 			return (2);
 		return (0);
 	}
-	else if (mapX <= app->player_x && mapY > app->player_y)
+	else if (map_x <= app->player_x && map_y > app->player_y)
 	{
 		if (side == 1)
 			return (2);
@@ -51,7 +51,7 @@ unsigned int	get_color(t_cub3d_info *app, t_raycasting_info *rc, \
 	tex_y = y_ratio_lineHeight / (double)rc->wall_height * TEXHEIGHT;
 	k = (unsigned int *)mlx_get_data_addr(app->wall_textures[wall_dir], \
 		&t, &t, &t);
-	return (k[tex_y * TEXWIDTH + rc->texX]);
+	return (k[tex_y * TEXWIDTH + rc->tex_x]);
 }
 
 void	put_pixel_img(t_cub3d_info *app, int x, int y, unsigned int color)

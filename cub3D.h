@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/27 15:37:48 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/27 16:04:58 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define TEXHEIGHT 64
 # define PLAYER_MOVE_SPEED 0.05
 # define PLAYER_ROTATE_SPEED 0.05
+# define PLAYER_PADDING 0.2
 
 typedef struct s_cub3d_info
 {
@@ -40,7 +41,7 @@ typedef struct s_cub3d_info
 	double			player_x;
 	double			player_y;
 	int				player_moving[4];
-	int				player_rotating;
+	int				player_rotating[2];
 	double			dir_x;
 	double			dir_y;
 	void			*wall_textures[4];
@@ -55,29 +56,30 @@ typedef struct s_cub3d_info
 
 typedef struct s_raycasting_info
 {
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	int		mapX;
-	int		mapY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	perpWallDist;
-	int		stepX;
-	int		stepY;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
 	int		hit;
 	int		side;
 	int		wall_height;
-	double	wallX;
-	int		texX;
+	double	wall_x;
+	int		tex_x;
 }	t_raycasting_info;
 
 int				init_app(t_cub3d_info *app);
 int				raycasting(t_cub3d_info *app);
 
-int				find_wall_dir(t_cub3d_info *app, int mapY, int mapX, int side);
+int				find_wall_dir(\
+	t_cub3d_info *app, int map_y, int map_x, int side);
 unsigned int	get_color(\
 	t_cub3d_info *app, t_raycasting_info *rc, \
 	int y_ratio_lineHeight, int wall_dir);

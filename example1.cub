@@ -1,0 +1,16 @@
+NO images/redbrick.xpm
+SO images/bluestone.xpm
+WE images/greystone.xpm
+EA images/mossy.xpm
+
+F 0,0,0
+C 255,255,255
+
+111111111111
+100000100001
+100000000001
+100001000001
+11000W000011
+100000000001
+100001000001
+111111111111

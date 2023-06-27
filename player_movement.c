@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:32:58 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 21:17:22 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/27 16:10:37 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	unset_player_move(int keycode, t_cub3d_info *app)
 	else if (keycode == 13)
 		app->player_moving[3] = 0;
 	else if (keycode == 123)
-		app->player_rotating = 0;
+		app->player_rotating[0] = 0;
 	else if (keycode == 124)
-		app->player_rotating = 0;
+		app->player_rotating[1] = 0;
 	return (0);
 }
 
@@ -42,9 +42,9 @@ int	set_player_move(int keycode, t_cub3d_info *app)
 	else if (keycode == 13)
 		app->player_moving[3] = 1;
 	else if (keycode == 123)
-		app->player_rotating = -1;
+		app->player_rotating[0] = 1;
 	else if (keycode == 124)
-		app->player_rotating = 1;
+		app->player_rotating[1] = 1;
 	return (0);
 }
 
@@ -54,7 +54,8 @@ void	player_rotate(t_cub3d_info *app)
 	double	old_dir_x;
 	double	old_plane_x;
 
-	rot_speed = PLAYER_ROTATE_SPEED * app->player_rotating;
+	rot_speed = PLAYER_ROTATE_SPEED * \
+		(-app->player_rotating[0] + app->player_rotating[1]);
 	old_dir_x = app->dir_x;
 	app->dir_x = app->dir_x * cos(rot_speed) - app->dir_y * sin(rot_speed);
 	app->dir_y = old_dir_x * sin(rot_speed) + app->dir_y * cos(rot_speed);
@@ -66,10 +67,18 @@ void	player_rotate(t_cub3d_info *app)
 
 void	check_wall_collision(t_cub3d_info *app, double old_x, double old_y)
 {
-	int	**map;
+	int	padding_x;
+	int	padding_y;
 
-	map = app->map;
-	if (map[(int)app->player_y][(int)app->player_x] == 1)
+	if (old_x < app->player_x)
+		padding_x = app->player_x + PLAYER_PADDING;
+	else
+		padding_x = app->player_x - PLAYER_PADDING;
+	if (old_y < app->player_y)
+		padding_y = app->player_y + PLAYER_PADDING;
+	else
+		padding_y = app->player_y - PLAYER_PADDING;
+	if (app->map[padding_y][padding_x] == 1)
 	{
 		app->player_x = old_x;
 		app->player_y = old_y;

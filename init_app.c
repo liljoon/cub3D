@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_app.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 21:30:42 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/27 16:05:07 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	init_info(t_cub3d_info *app)
 	i = 0;
 	while (i < 4)
 		app->player_moving[i++] = 0;
-	app->player_rotating = 0;
+	app->player_rotating[0] = 0;
+	app->player_rotating[1] = 0;
 	set_info(app);
 }
 
