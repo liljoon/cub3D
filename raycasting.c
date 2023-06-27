@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:38:53 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/27 00:53:57 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/27 16:08:04 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	raycasting(t_cub3d_info *app)
 	int		ray_count;
 
 	check_player_move(app);
-	if (app->player_rotating != 0)
+	if (app->player_rotating[0] || app->player_rotating[1])
 		player_rotate(app);
 	ray_count = 0;
 	while (ray_count < SCNWIDTH)
