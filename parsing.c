@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:12:15 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 22:30:48 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/27 16:19:12 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	add_texture(t_cub3d_info *app, char *line, char ***wall_path, int *cnt)
 	char	**split;
 
 	split = ft_split(line, ' ');
-	if (cnt_split(split) == 0)
-		return ;
 	if (cnt_split(split) != 2)
 		print_err("invalid element\n");
 	if (ft_strncmp(split[0], "EA", ft_strlen(split[0])) == 0)

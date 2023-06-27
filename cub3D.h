@@ -120,6 +120,7 @@ void			player_rotate(t_cub3d_info *app);
 
 unsigned int	convert_color(int rgb[]);
 void			print_err(char *msg);
+char			*cub_strtrim(char *s1, char *set);
 
 void			free_split(char **split);
 void			free_visited(int **visited, int height);
