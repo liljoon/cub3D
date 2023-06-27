@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 22:04:22 by yham              #+#    #+#             */
-/*   Updated: 2023/06/26 22:07:06 by yham             ###   ########.fr       */
+/*   Updated: 2023/06/27 16:19:17 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,17 @@ char	*read_element(t_cub3d_info *app, char ***wall_path, int fd)
 	elem_cnt = 0;
 	while (line)
 	{
-		line = ft_strtrim(line, "\n");
+		line = cub_strtrim(line, "\n");
 		if (check_tex_filled(app, wall_path, elem_cnt) && ft_strlen(line) != 0)
 			break ;
+		if (ft_strlen(line) == 0)
+		{
+			free(line);
+			line = get_next_line(fd);
+			continue ;
+		}
 		add_texture(app, line, wall_path, &elem_cnt);
+		free(line);
 		line = get_next_line(fd);
 	}
 	return (line);
@@ -39,14 +46,16 @@ void	read_map(t_cub3d_info *app, char *first_line, int fd)
 	line = first_line;
 	while (line)
 	{
-		line = ft_strtrim(line, "\n");
+		line = cub_strtrim(line, "\n");
 		if (ft_strlen(line) == 0)
 			print_err("invalid map\n");
 		if (!check_char(line, ft_strlen(line)))
 			print_err("invalid map\n");
 		fill_map(app, line, i++);
+		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 }
 
 void	read_file(t_cub3d_info *app, char ***wall_path)

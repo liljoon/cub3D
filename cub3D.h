@@ -6,7 +6,7 @@
 /*   By: yham <yham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/26 23:00:44 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/27 15:37:48 by yham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void			player_rotate(t_cub3d_info *app);
 
 unsigned int	convert_color(int rgb[]);
 void			print_err(char *msg);
+char			*cub_strtrim(char *s1, char *set);
 
 void			free_split(char **split);
 void			free_visited(int **visited, int height);
