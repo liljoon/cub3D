@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/27 15:57:17 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/27 16:04:58 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_cub3d_info
 	double			player_x;
 	double			player_y;
 	int				player_moving[4];
-	int				player_rotating;
+	int				player_rotating[2];
 	double			dir_x;
 	double			dir_y;
 	void			*wall_textures[4];
