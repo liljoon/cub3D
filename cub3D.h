@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isunwoo <isunwoo@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:39:20 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/27 00:54:08 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/27 15:57:17 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define TEXHEIGHT 64
 # define PLAYER_MOVE_SPEED 0.05
 # define PLAYER_ROTATE_SPEED 0.05
+# define PLAYER_PADDING 0.2
 
 typedef struct s_cub3d_info
 {
