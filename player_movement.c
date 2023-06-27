@@ -6,7 +6,7 @@
 /*   By: isunwoo <isunwoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:32:58 by isunwoo           #+#    #+#             */
-/*   Updated: 2023/06/27 16:41:02 by isunwoo          ###   ########.fr       */
+/*   Updated: 2023/06/27 16:53:18 by isunwoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,19 @@ void	check_wall_collision(t_cub3d_info *app, double old_x, double old_y)
 		app->player_x = old_x;
 		app->player_y = old_y;
 	}
-	if (app->map[(int)(app->player_y - PLAYER_PADDING)] \
+	else if (app->map[(int)(app->player_y - PLAYER_PADDING)] \
 		[(int)(app->player_x - PLAYER_PADDING)] == 1)
 	{
 		app->player_x = old_x;
 		app->player_y = old_y;
 	}
-	if (app->map[(int)(app->player_y + PLAYER_PADDING)] \
+	else if (app->map[(int)(app->player_y + PLAYER_PADDING)] \
 		[(int)(app->player_x - PLAYER_PADDING)] == 1)
 	{
 		app->player_x = old_x;
 		app->player_y = old_y;
 	}
-	if (app->map[(int)(app->player_y - PLAYER_PADDING)] \
+	else if (app->map[(int)(app->player_y - PLAYER_PADDING)] \
 		[(int)(app->player_x + PLAYER_PADDING)] == 1)
 	{
 		app->player_x = old_x;
